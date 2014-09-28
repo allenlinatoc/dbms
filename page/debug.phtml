@@ -1,0 +1,38 @@
+<!--<div class="container main">
+    <div class="container-fluid main-placeholder">
+        <?php
+        $rptActiveusers = new MYSQLREPORT(array(
+            [
+                'CAPTION' => '',
+                'C_TYPE' => 'CHECKBOX',
+                'C_OBJNAME' => 'a_id',
+                'style' => 'padding: 10px'
+            ],
+            [
+                'CAPTION' => 'Username'
+            ],
+            [
+                'CAPTION' =>  'Name'
+            ],
+            [
+                'CAPTION' => 'Email'
+            ]
+        ));
+        $rptActiveusers->setReportProperties(array(
+            'width' => '100%',
+            'border' => '1'
+        ))->setReportCellstemplate(array(
+            [
+                'style' => 'padding: 5px'
+            ], [], [], []
+        ));
+        
+        $rptActiveusers->loadResultdata(
+                ACCOUNTS::getActiveUsers(['user.id', 'username', 'concat(fname, \' \', lname)', 'email'], true)
+                );
+        $rptActiveusers->renderReport(true);
+        ?>
+        <br>
+    </div>
+</div>-->
+

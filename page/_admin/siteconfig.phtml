@@ -1,0 +1,48 @@
+<div class="container main">
+    <?php
+        Index::__IncludeSidebar('admin');
+    ?>
+    <div class="col-lg-9 col-md-9 col-sm-9 main-placeholder">
+        <c class="left">System configuration</c>
+        <?php
+            $form = new FORM('frmSystemconfig', 'post', '', '');
+            echo '<i>You can enable/disable the whole system.</i><br><br>';
+            $form->AddDropdown('System availability', 'postSystemavailability', 
+                    array(
+                        'Enabled' => 'enable',
+                        'Disabled' => 'disable'
+                    ), array(), 'REQUIRED', null, false, null, $postSystemavailability);
+            UI::HorizontalLine();
+            $form->AddText('<i>Once disabled, no user will be able to register in the system.</i>');
+            $form->AddDropdown('User registration', 'postUserregistration', 
+                    array(
+                        'Enabled' => 'enable',
+                        'Disabled' => 'disable'
+                    ), array(), 'REQUIRED', null, false, null, $postUserregistration);
+            $form->AddInput('User registration timeout (in minutes)', 'postRegistrationdelay', 'text', array(
+                        'required' => 'yes',
+                        'maxlength' => 4,
+                        'size' => 5
+                    ), 
+                    'REQUIRED', null, false, null, $postRegistrationdelay);
+            $form->AddText('<i>Once disabled, no one will be able to enroll under any course.</i>');
+            $form->AddDropdown('Student enrollment', 'postEnrollment', 
+                    array(
+                        'Enabled' => 'enable',
+                        'Disabled' => 'disable'
+                    ), array(), 'REQUIRED', null, false, null, $postEnrollment);
+            $form->AddText('<i>Newsfeed streaming within user\'s homepage can be enabled/disabled.</i>');
+            $form->AddDropdown('Newsfeed functionality', 'postNewsfeed', 
+                    array(
+                        'Enabled' => 'enable',
+                        'Disabled' => 'disable'
+                    ), array(), 'REQUIRED', null, false, null, $postNewsfeed);
+            UI::NewLine();
+            UI::Divbox(array(
+                'align' => 'left'
+            ), $form->RenderSubmitButton('&nbsp;&nbsp;Save&nbsp;&nbsp;', true));
+            
+            $form->EndForm();
+        ?>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="container main">
+    <?php
+    Index::__IncludeSidebar('admin');
+    ?>
+    <div class="col-lg-9 col-md-9 col-sm-9 main-placeholder">
+        <c class="left">My admin account</c>
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+            <b>Welcome <i><?php echo $username; ?></i>!</b><br>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="right">
+            <?php UI::Button(ucfirst($type), 'button', 'btn btn-small btn-primary'); ?>
+        </div>
+        <br>
+        <br>
+        <br>
+        In this section, you can customize your admin account.<br>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<div class="container main">
+    <?php
+        Index::__IncludeSidebar('admin');
+    ?>
+    <div class="col-lg-9 col-md-9 col-sm-9 main-placeholder">
+        <c class="left">Pending user registrations</c>
+        <br>
+        <?php
+        if (count($rptPendingusers->Rowdata)>0) {
+            $rptPendingusers->renderReport();
+        } else {
+            UI::NewLine();
+            UI::NewLine();
+            echo '<c class="left mid">No pending registration at the moment.</c>';
+            UI::NewLine();
+            UI::NewLine();
+        }
+        ?>
+        
+        &nbsp;
+    </div>
+</div>

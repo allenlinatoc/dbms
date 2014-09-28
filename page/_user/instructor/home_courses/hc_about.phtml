@@ -1,0 +1,76 @@
+<div class="container main">
+    <?php
+    Index::__IncludeSidebar('instructor-course');
+    ?>
+    <div class="col-lg-9 col-md-9 col-sm-9 main-placeholder">
+        <?php
+        // if MODE == 'EDIT', enter FORM
+        if ($MODE=='EDIT') {
+            $frmEditcourse = new FORM('frmEditcourse', 'post', '', '');
+        }
+        ?>
+        <div class="row">
+            <!-- Course name -->
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <?php
+                if ($MODE == 'EDIT') {
+                    // Show form on edit mode
+                    $frmEditcourse->AddInput('Course name', 'postName', 'text', array(
+                        'required' => 'yes',
+                        'maxlength' => 30,
+                        'size' => 32,
+                        'autofocus' => 'yes'
+                    ), 'REQUIRED', 'Max. of 30 characters', false, null, $postName);
+                } else {
+                    // or show title instead
+                    UI::HTML('c', array(
+                        'class' => 'left'
+                    ), DATA::__GetIntent('COURSE_INFOS')['name']);
+                }
+                ?>
+            </div>
+            <!-- Buttons -->
+            <div class="col-lg-6 col-md-6 col-sm-6" align="right">
+                <?php
+                UI::Button('Edit', 'button', 'btn btn-warning btn-small',
+                        UI::GetPageUrl(Index::__GetPage(), array(
+                            'MODE' => 'EDIT',
+                            'TARGET_ID' => intval(DATA::__GetIntent('COURSE_ID'))
+                        )), true, ($MODE=='EDIT' ? Index::__GetPage() : null));
+                UI::Button('Delete', 'button', 'btn btn-danger btn-small',
+                        UI::GetPageUrl(Index::__GetPage(), array(
+                            'MODE' => 'DELETE',
+                            'TARGET_ID' => intval(DATA::__GetIntent('COURSE_ID'))
+                        )));
+                ?>
+            </div>
+        </div>
+        <div>
+            <!-- Course description -->
+            <p align="left">
+                <?php
+                if ($MODE=='EDIT') {
+                    $frmEditcourse->AddTextarea('Course description', 'postDescription', $postDescription, [
+                        'required' => 'false',
+                        'rows' => '10'
+                    ],'DEFAULT', 'Text that best describes this course', true, null);
+                } else {
+                    echo '<b>Description: </b><p style="padding: 0px 0px 20px 15px;">' . nl2br(DATA::__GetIntent('COURSE_INFOS')['description']) . '<p>' . PHP_EOL;
+                    echo '<b>Course code: </b>' . nl2br(DATA::__GetIntent('COURSE_INFOS')['code']);
+                }
+                ?>
+            </p>
+        </div>
+        <?php
+        if ($MODE=='EDIT') {
+            UI::Button('Save', 'submit', 'btn btn-primary');
+            UI::Button('Cancel', 'button', 'btn btn-danger', 
+                    UI::GetPageUrl(Index::__GetPage(), array(
+                        'MODE' => 'CANCEL_EDIT'
+                    )));
+            $frmEditcourse->EndForm();
+        }
+        ?>
+        <?php UI::HorizontalLine() ?>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+<div class="container main">
+    <div class="row-fluid">
+        <div class="container main-placeholder">
+            <?php
+            if ($hasSchoolyear) {
+                $icon_name = 'prompt.png';
+                $message = 'Default school year: <b>'.$schoolyear.'</b>';
+            }
+            else {
+                $icon_name = 'warning.png';
+                $message = '<b>No default school year</b>';
+            }
+            UI::HTML('img', array(
+                'src' => 'web+/site/img/'.$icon_name,
+                'width' => 30,
+                'height' => 30
+            ));
+            UI::HTML('span', array(
+                'align' => 'left'
+            ), '&nbsp;&nbsp;'.$message);
+            ?>
+        </div>
+    </div>
+    <br>
+    <div class="col-lg-8 col-md-8 col-sm-8 main-placeholder">
+        <c class="left">Getting started</c>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 main-container">
+                <c class="left mid">Sign in to your account</c>
+                <form method="post" role="form">
+                    <input type="text" name="postUsername" class="form-control" placeholder="Username" required autofocus maxlength="20"
+                           <?php // Value evaluation
+                           if (DATA::__HasPostData('postUsername')) {
+                               echo 'value="' . DATA::__GetPOST('postUsername', true, true) . '"';
+                           }
+                           ?>>
+                    <input type="password" name="postPassword" class="form-control" placeholder="Password" maxlength="30">
+                    <input type="submit" class="btn btn-primary btn-sm btn-block" value="Log in">
+                </form>
+                Don't have an account? <a href="<?php echo UI::GetPageUrl('signup'); ?>">Request one</a>
+                <br>
+                Forgot password? <a href="<?php echo UI::GetPageUrl('forgotpassword'); ?>">Click here</a>
+            </div>
+            
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 main-container">
+                <c class="left mid">Enroll in a course</c>
+                <?php 
+                if (DATA::__GetIntent('IS_COURSE_CODE_SETTLED', true)
+                        && DATA::__GetIntent('COURSE_CODE', true)
+                        && DATA::__GetIntent('COURSE_NAME', true)) {
+                    UI::Divbox(array(
+                        'align' => 'center',
+                        'style' => 'padding: 10px 5px 5px 5px;'
+                    ), 'Course code matched with<br>'
+                     . '<span style="font-size: 17px;"><b>' . DATA::__GetIntent('COURSE_NAME') . '</b></span>'
+                     . '<br>'
+                     . '<br>'
+                     . UI::Divbox(['align' => 'left'], 
+                             'To proceed, <b>log in to your student account</b> using the form at the left side.</b>', true)
+                     . '<br>'
+                     . UI::Button('Cancel', 'button', 'btn btn-warning btn-small',
+                             UI::GetPageUrl('home', array(
+                                 'IS_CANCELCOURSE' => 'true'
+                             )), false));
+                } else {
+                    DATA::DeleteIntents([
+                        'IS_COURSE_CODE_SETTLED',
+                        'COURSE_CODE',
+                        'COURSE_NAME'
+                    ]);
+                    /**
+                     * HTML-FORM: Course code entry
+                     */
+                    echo '<form method="post" role="form">';
+                        echo '<input type="text" name="postCoursecode" class="form-control" placeholder="Enter course code" maxlength="11"';
+                            // Value evaluation
+                            echo 'value="' . $postCoursecode . '">';
+                        echo '<input type="submit" class="btn btn-block btn-primary btn-sm" value="Enroll">';
+                    echo '</form>';
+                }
+                ?>
+            </div>
+        </div>
+        <br>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 main-placeholder">
+        <c class="left">Top students</c>
+    </div>
+</div>

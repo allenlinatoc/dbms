@@ -1,0 +1,45 @@
+<div class="container main">
+    <div class="container-fluid main-placeholder">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8">
+                <h1><?php echo $SCHEME_INFOS['name']; ?></h1>
+                <p style="padding: 2%;"><?php echo $SCHEME_INFOS['description'] ?></p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <?php
+                UI::Divbox(array(
+                    'align' => 'right'
+                ), 
+                UI::Button('Edit', 'button', 'btn btn-primary btn-small', 'google.com', false)
+              . UI::Button('Delete this scheme', 'button', 'btn btn-danger btn-small', 
+                      UI::GetPageUrl(Index::__GetPage(), array(
+                          'IS_DELETE' => 'true'
+                      )),
+                    false));
+                ?>
+            </div>
+        </div>
+        <?php
+        if (DATA::__GetIntent('IS_DELETE')=='true') {
+            UI::Divbox(array(
+                'class' => 'container-fluid main-placeholder notif-danger',
+                'align' => 'left'
+            ), 'Are you sure you want to delete this scheme?' . '&nbsp;&nbsp;&nbsp;&nbsp;'
+             . UI::Button('Yes', 'button', 'btn btn-danger btn-small', 
+                     UI::GetPageUrl(Index::__GetPage(), [ 'IS_PROCEED' => 'true' ]), false)
+             . '&nbsp;&nbsp;'
+             . UI::Button('Cancel', 'button', 'btn btn-warning', 
+                     UI::GetPageUrl(Index::__GetPage(), [ 'IS_PROCEED' => 'false' ]), false));
+        }
+        ?>
+        <c style="display: block;">Scheme components</c>
+        <?php
+            UI::Button('Add new scheme', 'button', 'btn btn-primary btn-small', UI::GetPageUrl('instructor-gschemes-home-form'));
+            UI::NewLine();
+            UI::NewLine();
+        ?>
+        <?php
+            $rptComponents->renderReport();
+        ?>
+    </div>
+</div>

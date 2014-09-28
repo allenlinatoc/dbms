@@ -1,0 +1,33 @@
+<div class="container main">
+
+    <?php
+    Index::__IncludeSidebar('admin');
+    ?>
+    <div class="col-lg-9 col-md-9 col-sm-9 main-placeholder">
+        <c class="left">Dashboard</c>
+            <?php
+            require_once DIR::$PAGE . '_admin/includes/headcontrols.phtml';
+            ?>
+            <?php
+            if (count($a_pendingusers) > 0) {
+                echo '<div class="container">';
+                echo '<c class="mid">You got ' . count($a_pendingusers) . ' pending users</c>';
+                $a_list_userdata = array();
+                $count = 0;
+                foreach ($a_pendingusers as $user) {
+                    # Limit visible pending users to MAX of 5
+                    if ($count > 5) {
+                        break;
+                    }
+                    array_push($a_list_userdata, $user['fname'] . ' ' . $user['lname'] . ' (' . $user['username'] . ')');
+                    $count++;
+                }
+                UI::CreateList($a_list_userdata, true);
+                UI::Button('More', 'button', 'btn btn-primary btn-small', UI::GetPageUrl('admin-pending-registrations'));
+                echo '</div>';
+                UI::HorizontalLine();
+            }
+            ?>
+
+    </div>
+</div>

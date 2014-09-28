@@ -1,0 +1,51 @@
+<script language="javascript">
+    function sortCourses() {
+        var frmSortCourse = document.getElementsByName('frmSortcourse')[0];
+        frmSortCourse.submit();
+    }
+</script>
+
+<div class="container main">
+    <?php
+    Index::__IncludeSidebar('admin');
+    ?>
+    <div class="col-lg-9 col-md-9 col-sm-9 main-placeholder">
+        <c class="left">Manage existing courses</c>
+        <i class="small">* Locking a course means it can never be accessed by the instructor and students, until it is unlocked again.</i><br>
+        <i class="small">** Deleting a course will wipe all data related to the course.</i>
+        <br><br>
+        <div class="row">
+            <?php
+            $frmSortCourse = new FORM('frmSortcourse', 'post', '', ''); ?>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <?php
+                $frmSortCourse->AddDropdown('Sort by', 'postSortby', 
+                        array(
+                            'NONE' => 'SORT_NOTHING',
+                            'Course code' => 'code',
+                            'Course name' => 'name',
+                            'Course instructor' => 'username'
+                        ), 
+                        array(
+                            'align' => 'left',
+                            'onchange' => 'sortCourses()'
+                        ), 'REQUIRED');
+                ?>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <?php
+                if (DATA::__HasPostData('postSortby')) {
+                    UI::Button('Remove filter', 'button', 'btn btn-primary btn-small btn-marginized', UI::GetPageUrl(Index::__GetPage()));
+                }
+                ?>
+            </div>
+            <?php 
+            $frmSortCourse->EndForm();
+            ?>
+        </div>
+        <?php
+        $rptManageCourses->renderReport();
+        ?>
+        &nbsp;
+    </div>
+</div>

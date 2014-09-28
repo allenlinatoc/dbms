@@ -1,0 +1,31 @@
+SYSTEM ADMIN
+1. Web app setting
+2. User accounts management
+
+
+
+TEACHER
+1. Course management
+	a. Student enrollment entry management
+	b. Enrollment approval
+
+	Under certain course
+	1. Discussion board
+	2. Attendance management
+	3. Tasks
+		a. Task file upload
+		b. Management of submitted files
+		c. Results publication
+	4. Student Evaluation
+		a. Grading period management
+	5. Leaderboard
+		a. Can be visible (Homepage, Course page) or be PRIVATE
+		b. Instructor can show:
+			i. Top X students only
+			ii. Overall ranking
+
+
+
+STUDENT
+1. Course management (minor privileges)
+2. Tasks management

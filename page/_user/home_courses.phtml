@@ -1,0 +1,34 @@
+<div class="container main">
+    <?php
+    $usertype = strtolower(USER::Get(USER::TYPE));
+    Index::__IncludeSidebar($usertype . '-course');
+    ?>
+    <div class="col-lg-9 col-md-9 col-sm-9 main-placeholder">
+        <c class="left"><?php echo $COURSE_INFOS['name']; ?></c>
+        <br>
+        <?php
+        foreach($result_Notifications as $row) {
+            echo '<div class="' . 'notifstream-new' . '">';
+            echo    '<div class="row">';
+            echo    '<div class="col-lg-10 col-md-10">';
+            echo        '<div class="row-fluid notifstream-datetime">'.$row['datetime'].'</div>';
+            echo        '<span>'.$row['text'].'</span>';
+            echo    '</div>';
+            echo    '<div class="col-lg-2 col-md-2">';
+            echo        '<div class="notifstream-control">';
+            UI::Button('>>', 'button', 'btn btn-primary btn-small', $row['targetrelpath']);
+            echo        '</div>';
+            echo    '</div>';
+            echo    '</div>';
+            echo '</div>';
+        }
+        if (count($result_Notifications) <= 0) 
+        {
+            UI::HTML('p', array(
+                'align' => 'center',
+                'style' => 'padding:5%'
+            ), 'No notifications');
+        }
+        ?>
+    </div>
+</div>

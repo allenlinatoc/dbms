@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<div class="col-lg-3 col-md-3 col-sm-3 main-placeholder">
+    <c class="left">Panel sections</c>
+    <ul style="margin:0px; padding:0px 10px;">
+        <li><?php UI::makeNavigationLink('Home panel', UI::GetPageUrl('admin-home'), 'admin-home') ?></li>
+        <li><?php UI::makeNavigationLink('System configuration', UI::GetPageUrl('admin-site-config'), 'admin-site-config'); ?></li>
+        <li><?php UI::makeNavigationLink('Manage existing courses', UI::GetPageUrl('admin-manage-courses'), 'admin-manage-courses'); ?></li>
+        <li><?php UI::makeNavigationLink('Pending user registrations', UI::GetPageUrl('admin-pending-registrations'), 'admin-pending-registrations'); 
+            if ($count_pending > 0) {
+                echo ' ('.$count_pending.')';
+            }
+            ?>
+        <li><?php UI::makeNavigationLink('Manage users ('.$count_users.')', UI::GetPageUrl('admin-manage-users'), 'admin-manage-users'); ?>
+        </li>
+        <li><?php UI::makeNavigationLink('Manage Academic/School year entries ('.$count_sy.')', UI::GetPageUrl('admin-manage-schoolyears'), 'admin-manage-schoolyears'); ?>
+        </li>
+        <hr>
+        <li><?php UI::makeNavigationLink('My account', UI::GetPageUrl('admin-myaccount'), 'admin-myaccount') ?>
+        </li>
+        <li><a href="javascript:;" onclick="window.location='<?php echo UI::GetPageUrl('logout', ['landing' => 'home']); ?>'">Logout</a>
+        </li>
+
+    </ul>
+</div>

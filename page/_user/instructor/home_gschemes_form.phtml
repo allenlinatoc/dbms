@@ -1,0 +1,29 @@
+<div class="container main">
+    <div class="container-fluid main-placeholder">
+        <c class="left">Add new component</c>
+        <b>Current scheme: </b><?php echo $SCHEME_INFOS['name']; ?>
+        <br>
+        <br>
+        <br>
+        
+        <?php
+        $frmComponent = new FORM('frmComponent', 'post', '', '');
+        $frmComponent->AddInput('Component name', 'postName', 'text', array(
+            'required' => 'yes',
+            'maxlength' => '45',
+            'size' => '45'
+        ), 'REQUIRED', 'Max. of 45 characters', false, '', '');
+        /*
+        $frmComponent->AddTextarea('Notes', 'postNotes', null, array(
+            'required' => 'no',
+            'rows' => '15',
+            'maxlength' => 2000
+        ), 'DEFAULT', NULL, true);
+         *
+         */
+        $frmComponent->RenderSubmitButton('Add');
+        $frmComponent->RenderCancelButton('Cancel');
+        $frmComponent->EndForm();
+        ?>
+    </div>
+</div>

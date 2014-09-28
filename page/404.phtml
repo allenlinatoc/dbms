@@ -1,0 +1,34 @@
+<div class="container main main-placeholder">
+    <div class="col-lg-4 col-md-4 col-sm-4 main-placeholder">
+        <div align="center">
+            <img src="web+/site/img/warning.png" style="width: 80%; height: auto;" />
+        </div>
+        <c class="center">404 Not Found</c>
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-8 main-placeholder">
+        <c class="left">Resource not available</c>
+        <br>
+        The <?php echo is_null($targetpage404) || strlen($targetpage404)==0 ? 'requested resource' : 'system page <b>' . $targetpage404 . '</b>'; ?>
+        was not found or is currently unavailable.
+        <br>
+        If you think this is an error, please contact the system admin.
+        <br>
+        <br>
+        <?php
+        if (key_exists('email', $Admindata)) {
+            echo 'You can also write an inquiry email to system admin at <b>' . $Admindata['email'] . '</b>.';
+            UI::NewLine(2);
+        }
+        UI::Button('Go back', 'button', 'btn btn-primary', 
+                !is_null($referrer) ? UI::GetPageUrl($referrer) : 'javascript:window.history.back();');
+        UI::Button('Retry', 'button', 'btn btn-warning', 
+                UI::GetPageUrl('404', array(
+                    'target' => $targetpage404,
+                    'ref' => $referrer
+                )));
+        UI::Button('Home', 'button', 'btn btn-warning', UI::GetPageUrl(Index::$DEFAULT_PAGE));
+        
+        UI::NewLine(2);
+        ?>
+    </div>
+</div>

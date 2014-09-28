@@ -1,0 +1,29 @@
+<div class="container main">
+    <div class="container-fluid main-placeholder">
+        <c class="left"><?php echo $dialogObject->DialogTitle; ?></c>
+        <div class="container-fluid" align="left" style="padding: 5% 9%; font-size: 115%;">
+            <?php
+            echo $dialogObject->GetMessage();
+            ?>
+            <br>
+            <br>
+            <br>
+            <div align="right">
+            <?php    
+            UI::Button('&nbsp;&nbsp;Yes&nbsp;&nbsp;', 'button', 'btn btn-primary btn-small', 
+                    UI::GetPageUrl(Index::__GetPage(), array(
+                        'LOCALRESULT' => DIALOG::R_AFFIRMATIVE
+                    )));
+            UI::Button('&nbsp;&nbsp;No&nbsp;&nbsp;', 'button', 'btn btn-warning btn-small', 
+                    UI::GetPageUrl(Index::__GetPage(), array(
+                        'LOCALRESULT' => DIALOG::R_NEGATIVE
+                    )));
+            UI::Button('Cancel', 'button', 'btn btn-danger btn-small', 
+                    UI::GetPageUrl(Index::__GetPage(), array(
+                        'LOCALRESULT' => DIALOG::R_CANCEL
+                    )));
+            ?>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="container main">
+    <?php
+    Index::__IncludeSidebar('instructor');
+    ?>
+    <div class="col-lg-9 col-md-9 col-sm-9 main-placeholder">
+        <c class="left">Course management</c>
+            <?php UI::Button('+ New course', 'button', 'btn btn-primary btn-small', UI::GetPageUrl('instructor-courses-form')); ?>
+        <br>
+        <br>
+        <?php
+        $rptCourses->renderReport();
+        ?>
+    </div>
+</div>

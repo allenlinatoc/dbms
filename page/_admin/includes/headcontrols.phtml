@@ -1,0 +1,6 @@
+<div align="right">
+    <?php
+    UI::Button('+ ' . USER::Get(USER::USERNAME), 'button', 'btn btn-warning btn-small', UI::GetPageUrl('admin-myaccount'));
+    UI::Button('Logout', 'button', 'btn btn-danger btn-small', UI::GetPageUrl('logout').'&landing=home');
+    ?>
+</div>

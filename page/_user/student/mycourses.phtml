@@ -1,0 +1,45 @@
+<div class="container main">
+    <?php
+    Index::__IncludeSidebar(strtolower(USER::Get(USER::TYPE)));
+    ?>
+    <div class="col-lg-9 col-md-9 col-sm-9 main-placeholder">
+        <c class="left">My courses</c>
+            <?php
+            $count_pending = count($result_PendingCourses);
+            if ($count_pending > 0) {
+                echo '<c class="mid section">You have ' . $count_pending . ' pending enrollment entr'
+                        . ($count_pending > 1 ? 'ies' : 'y') . '</c>';
+                $rptPendingCourses->renderReport(false);
+                UI::NewLine();
+                UI::NewLine();
+                UI::NewLine();
+            }
+            ?>
+        
+            <?php
+            // Check if enrollment is turned on
+            $config = new CONFIG(DIR::$CONFIG . SYS::$CONFIG_SYSTEM_FILENAME);
+            $enrollmentEnabled = strtolower($config->Get('enable_enrollment'))=='enable';
+            $notice = '';
+            $btnClass = '';
+            if (!$enrollmentEnabled) {
+                $notice = '<i>Course enrollment is disabled</i>&nbsp;&nbsp;&nbsp;';
+                $btnClass = ' disabled';
+            }
+            else {
+                
+            }
+            UI::Divbox([ 'align' => 'right' ],
+                $notice .
+                UI::Button('Enroll in a new course', 'button', 'btn btn-primary btn-small'.$btnClass, 
+                        UI::GetPageUrl('student-mycourses-enroll', [
+                            'IS_ALLOW' => 'true'
+                        ]), false)
+            );
+            ?>
+        <c class="mid tableheading">Enrolled courses</c>
+        <?php
+        $rptEnrolledCourses->renderReport();
+        ?>
+    </div>
+</div>

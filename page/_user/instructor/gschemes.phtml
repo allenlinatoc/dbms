@@ -1,0 +1,13 @@
+<div class="container main">
+    <?php
+    Index::__IncludeSidebar('instructor');
+    ?>
+    <div class="col-lg-9 col-md-9 col-sm-9 main-placeholder">
+        <c class="left">Grading schemes</c>
+        <?php UI::Button('Create', 'button', 'btn btn-primary btn-small', UI::GetPageUrl('instructor-gschemes-form')); ?>
+        <br><br>
+        <?php
+            $rptSchemes->renderReport();
+        ?>
+    </div>
+</div>

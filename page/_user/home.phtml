@@ -1,0 +1,45 @@
+<div class="container main">
+    <?php
+    Index::__IncludeSidebar(strtolower($uc_type));
+    ?>
+    <div class="col-lg-9 col-md-9 col-sm-9 main-placeholder">
+        <c class="left">Notifications</c>
+        <?php
+            UI::Button('Previous', 'button', 'btn btn-primary btn-xs', '#');
+            UI::Button('&nbsp;&nbsp;&nbsp;Next&nbsp;&nbsp;&nbsp;', 'button', 'btn btn-primary btn-xs', '#');
+        ?>
+        <hr>
+        <!-- notifications fall here -->
+        <?php
+        foreach ($result_Notifications as $row) {
+            echo    '<div class="notifstream-new">';
+            echo        '<div class="row">';
+            echo            '<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">';
+            echo                '<div class="row-fluid notifstream-datetime">'.$row['datetime'].'</div>';
+            echo                '<span>'.nl2br($row['text']).'</span>';
+            echo            '</div>';
+            echo            '<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
+            echo                '<div class="notifstream-control">';
+                            if (!STR::__IsBlank($row['targetrelpath'], true)) {
+                                UI::Button('>>', 'button', 'btn btn-primary btn-block', $row['targetrelpath']);
+                            }
+            echo                '</div>';
+            echo            '</div>';
+            echo        '</div>';
+            echo    '</div>';
+        }
+        if (count($result_Notifications) <= 0) 
+        {
+            UI::HTML('p', array(
+                'align' => 'center',
+                'style' => 'padding:5%'
+            ), 'No notifications');
+        }
+        ?>
+        <hr>
+        <?php
+            UI::Button('Previous', 'button', 'btn btn-primary btn-small', '#');
+            UI::Button('&nbsp;&nbsp;&nbsp;Next&nbsp;&nbsp;&nbsp;', 'button', 'btn btn-primary btn-small', '#');
+        ?>
+    </div>
+</div>

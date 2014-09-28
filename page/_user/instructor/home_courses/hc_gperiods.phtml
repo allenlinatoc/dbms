@@ -1,0 +1,55 @@
+<div class="container main">
+    <?php
+    Index::__IncludeSidebar('instructor-course');
+    $COURSE_INFOS = DATA::__GetIntent('COURSE_INFOS');
+    ?>
+    <div class="col-lg-9 col-md-9 col-sm-9 main-placeholder">
+        <c class="left">Grading periods - <i><?php echo $COURSE_INFOS['name']; ?></i></c>
+        <div class="container-fluid row" align="right">
+            <?php
+            if ($MODE=='REQ_ADD') 
+            {   
+                $a_dropdown = array();
+
+                // building dropdown selections
+                $sql = new DB();
+                $sql->Select()
+                        ->From('gperiod')
+                        ->OrderBy('id', DB::ORDERBY_ASCENDING);
+                $result = $sql->Query();
+                foreach($result as $row) {
+                    $a_dropdown[$row['name']] = $row['id'];
+                }
+                $frmGradingperiod = new FORM('frmGradingperiod', 'post', '', '');
+                UI::HTML('hr');
+                $frmGradingperiod->AddLabel('New grading period', 'LARGE');
+                $frmGradingperiod->AddDropdownSimple('Grading periods', 'postPeriods', $a_dropdown
+                        , array(), '', $postPeriods);
+                UI::NewLine();
+                UI::NewLine();
+                $frmGradingperiod->AddTextarea('Notes', 'postNotes', ''
+                        , array(
+                            'placeholder' => 'Enter notes here...',
+                            'rows' => 7
+                        ), 'DEFAULT', '', true);
+                UI::NewLine();
+                $frmGradingperiod->RenderSubmitButton('Submit');
+                UI::Button('Cancel', 'button', 'btn btn-warning btn-sm'
+                        , UI::GetPageUrl(Index::__GetPage(), [ 'MODE' => 'NOTHING' ]));
+                $frmGradingperiod->EndForm();
+                UI::HTML('hr');
+            }
+            else {
+                UI::Button('Add grading period', 'button', 'btn btn-primary btn-small', 
+                        UI::GetPageUrl(Index::__GetPage(), array(
+                            'MODE' => 'REQ_ADD'
+                        )));
+                UI::NewLine();
+                UI::NewLine();
+            }
+            
+            $report_Gradingperiods->renderReport();
+            ?>
+        </div>
+    </div>
+</div>

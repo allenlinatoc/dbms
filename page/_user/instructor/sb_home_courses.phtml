@@ -1,0 +1,40 @@
+<div class="col-lg-3 col-md-3 col-sm-3 main-placeholder">
+    <c class="navhead underlined">Course sections</c>
+    <ul class="sys-sidebar">
+        <li><?php UI::makeNavigationLink('Home ' . (!is_null($SB_COURSE_NAME) ? '(' . $SB_COURSE_NAME . ')' : ''), 
+                UI::GetPageUrl('user-courses-home'), 'user-courses-home');
+        ?></li>
+        <li><?php UI::makeNavigationLink('Message board', 
+                UI::GetPageUrl('user-courses-messageboard'), 'user-courses-messageboard');
+        ?></li>
+        <li><?php UI::makeNavigationLink('Tasks/Assignments', 
+                UI::GetPageUrl('instructor-courses-home-tasks'), 'instructor-courses-home-tasks');
+        ?></li>
+        <li><?php UI::makeNavigationLink('About this course',
+                UI::GetPageUrl('instructor-courses-home-about'), 'instructor-courses-home-about');
+        ?></li>
+        <li><?php UI::makeNavigationLink('<i>Back to User dashboard</i>',
+                UI::GetPageUrl('user-home'), 'user-home');
+        ?></li>
+    </ul>
+    <hr>
+    <c class="navhead underlined">Student management</c>
+    <ul class="sys-sidebar">
+        <li><?php UI::makeNavigationLink('Pending student entries', 
+                UI::GetPageUrl('instructor-courses-home-spending'), 'instructor-courses-home-spending');
+        ?></li>
+        <li><?php UI::makeNavigationLink('Students list', 
+                UI::GetPageUrl('instructor-courses-home-students'), 'instructor-courses-home-students');
+        ?></li>
+        <li><?php UI::makeNavigationLink('Banned students',
+                UI::GetPageUrl('instructor-courses-home-sbanned'), 'instructor-courses-home-sbanned');
+        ?></li>
+    </ul>
+    <hr>
+    <c class="navhead underlined">Grading management</c>
+    <ul class="sys-sidebar">
+        <li><?php UI::makeNavigationLink('Grading periods', 
+                UI::GetPageUrl('instructor-courses-home-gperiods'), 'instructor-courses-home-gperiods');
+        ?></li>
+    </ul>
+</div>

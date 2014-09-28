@@ -1,0 +1,29 @@
+<div class="container main">
+    <?php
+        Index::__IncludeSidebar('admin');
+    ?>
+    <div class="col-lg-9 col-md-9 col-sm-9 main-placeholder">
+        <c class="left">Open new Academic year entry</c>
+        <?php
+        $frmAy = new FORM('frmAy', 'post', '', '');
+        $a_properties = array(
+            'required' => 'yes'
+        );
+        if ($MODE == 'EDIT') {
+            $a_properties['disabled'] = 'yes';
+        }
+        $frmAy->AddDropdown('Academic year', 'postAcademicyear', $a_yearoptions, $a_properties, 'REQUIRED', null, false, null, $postAcademicyear);
+        $frmAy->AddInput('Description', 'postDescription', 'text', array(
+            'maxlength' => '500',
+            'size' => 35
+        ), 'DEFAULT', 'Max. of 500 characters', true, null, $postDescription);
+        $frmAy->RenderSubmitButton('Submit');
+        UI::Button('Cancel', 'button', 'btn btn-warning btn-small', 
+                UI::GetPageUrl(Index::__GetPage(), array(
+                    'MODE' => 'CANCEL'
+                ))
+            );
+        $frmAy->EndForm();
+        ?>
+    </div>
+</div>

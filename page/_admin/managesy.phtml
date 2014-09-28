@@ -1,0 +1,48 @@
+<script type="text/javascript">
+    function submitSortby() {
+        document.getElementById('frmSortby').submit();
+    }
+</script>
+<div class="container main">
+    <?php
+    Index::__IncludeSidebar('admin');
+    ?>
+    <div class="col-lg-9 col-md-9 col-sm-9 main-placeholder" id="rpane">
+        <c class="left">Manage School/Academic years</c>
+        <br>
+        <div align="right">
+            <?phpbutton
+            UI::Button('Open a new Academic/School year', 'button', 'btn btn-primary btn-small', UI::GetPageUrl('admin-manage-schoolyears-form'));
+            ?>
+        </div>
+        <br>
+        <div class="row-fluid">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <?php
+                ?>
+                <form method="post" id="frmSortby" action="#rpane">
+                    <label>Sort by</label>
+                    <select name="postSortby" class="form-inline form-icontrol" onchange="submitSortby();">
+                        <option value="-1" <?php echo ($postSortby==-1 ? 'selected':'') ?>>NONE</option>
+                        <option value="3" <?php echo ($postSortby==3 ? 'selected':'') ?>>A.Y.</option>
+                        <option value="4" <?php echo ($postSortby==4 ? 'selected':'') ?>>Description</option>
+                    </select>
+                    <?php
+                    if (DATA::__HasPostData('postSortby'))
+                    {
+                        UI::Button('Remove filter', 'button', 'btn btn-warning btn-small', UI::GetPageUrl(Index::__GetPage()));
+                    }
+                    ?>
+                </form>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="right">
+                <?php
+                UI::Button('Add new', 'button', 'btn btn-primary btn-small', UI::GetPageUrl('admin-manage-schoolyears-form'));
+                ?>
+            </div>
+        </div>
+        <?php
+            $rptSchoolYear->renderReport();
+        ?>
+    </div>
+</div>

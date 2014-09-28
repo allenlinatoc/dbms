@@ -1,0 +1,31 @@
+<div class="container main">
+    <div class="container-fluid main-placeholder">
+        <c class="left">
+            <?php
+            echo $FORM_MODE=='ADD' ?
+                    'Create new course'
+                  : 'Edit course - ' . DATA::__GetIntent('COURSE_INFOS')['name'];
+            ?>
+        </c>
+        <br>
+        <?php
+        $DEFAULT_SIZE = 32;
+        
+        $frmCourse = new FORM('frmCourse', 'post', '', '');
+        $frmCourse->AddInput('Course name', 'postName', 'text', [
+            'required' => 'true',
+            'size' => $DEFAULT_SIZE,
+            'maxlength' => '30'
+        ], 'REQUIRED', 'Max. of 30 chars., no spaces', false, '', $postName);
+        $frmCourse->AddTextarea('Course description', 'postDescription', $postDescription, [
+            'required' => 'false',
+            'rows' => '15'
+        ],'DEFAULT', 'Text that best describes this course', true, null);
+        UI::NewLine();
+        $frmCourse->RenderSubmitButton('Create');
+        $frmCourse->RenderCancelButton('Cancel');
+        $frmCourse->EndForm();
+        ?>
+        <br>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<div class="container main">
+        <?php
+        Index::__IncludeSidebar('admin');
+        ?>
+    <div class="col-lg-9 col-md-9 col-sm-9 main-placeholder">
+        <c class="left">Manage users</c>
+        <i>In this section, you can manage all user accounts within the system.</i>
+        <br>
+        <br>
+        <br>
+        <?php
+        $rptUsers->renderReport();
+        ?>
+    </div>
+</div>

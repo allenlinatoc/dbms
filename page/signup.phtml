@@ -1,0 +1,111 @@
+<div class="container main">
+    <div class="container-fluid main-placeholder">
+        <c class="left">Sign up for an account</c>
+        <br>
+        <br>
+        <?php
+        $DEFAULT_SIZE = 32;
+        
+        $form = new FORM("frmSignup", "post", "", "col-lg-6 col-md-7 col-sm-7", "left");
+        
+            $form->AddDropdown("Account type", "postType", array(
+                "Teacher/Instructor" => 1,
+                "Student" => 2
+            ), array(), "REQUIRED");
+            
+            UI::NewLine();
+            $form->AddInput("Username", "postUsername", "text", array(
+                "required" => "true",
+                "maxlength" => 20,
+                "size" => $DEFAULT_SIZE
+                ), "REQUIRED",
+                "a-z, 0-9, max. of 20 characters");
+            $form->AddInput("Password", "postPass1", "password", array(
+                "required" => "true",
+                "maxlength" => 30,
+                "size" => $DEFAULT_SIZE
+                ), "REQUIRED",
+                "Max. of 30 characters");
+            $form->AddInput("Confirm password", "postPass2", "password", array(
+                "required" => "true",
+                "maxlength" => 30,
+                "size" => $DEFAULT_SIZE
+                ), "REQUIRED");
+            $form->AddDropdown("Gender", "postGender", array(
+                "Male" => "male",
+                "Female" => "female"
+            ), array(), "REQUIRED");
+            $form->AddInput("E-mail address", "postEmail", "email", array(
+                "required" => "true",
+                "maxlength" => 60
+                ), "REQUIRED", null, true);
+            $form->AddInput("Mobile number", "postMobile", "text", array(
+                "maxlength" => 15,
+                "size" => $DEFAULT_SIZE
+                ), "DEFAULT", null);
+            $form->AddInput("Security question", "postSecquestion", "text", array(
+                "required" => "true",
+                "maxlength" => 75
+                ), "REQUIRED",
+                "Max. of 75 characters",
+                    true);
+            $form->AddInput("Answer to security question", "postSecanswer", "text", array(
+                "required" => "true",
+                "maxlength" => 30,
+                "size" => $DEFAULT_SIZE
+                ), "REQUIRED");
+            UI::HorizontalLine();
+        ?>
+        <c class="left">Personal information</c>
+        <div class="container-fluid">
+            <?php
+                $form->AddInput("First name", "postFname", "text", array(
+                    "required" => "true",
+                    "maxlength" => 40,
+                    "size" => $DEFAULT_SIZE
+                    ), "REQUIRED");
+                $form->AddInput("Middle name", "postMname", "text", array(
+                    "maxlength" => 40,
+                    "size" => $DEFAULT_SIZE
+                    ));
+                $form->AddInput("Last name", "postLname", "text", array(
+                    "required" => "true",
+                    "maxlength" => 40,
+                    "size" => $DEFAULT_SIZE
+                    ), "REQUIRED");
+                $form->AddInput("Address", "postAddress1", "text", array(
+                    "required" => "true",
+                    "maxlength" => 130
+                ), "REQUIRED", "Your current address", true);
+                $form->AddInput("Address 2", "postAddress2", "text", array(
+                    "maxlength" => 130
+                ), "DEFAULT", "Home/alternative address (optional)", true);
+                $form->AddInput("City", "postCity", "text", array(
+                    "required" => "true",
+                    "maxlength" => 30,
+                    "size" => $DEFAULT_SIZE
+                ), "REQUIRED");
+                $form->AddInput("Province/State", "postProvince", "text", array(
+                    "required" => "true",
+                    "maxlength" => 50,
+                    "size" => $DEFAULT_SIZE
+                ), "REQUIRED");
+                $form->AddInput("Birthday", "postBirthday", "text", array(
+                    "required" => "true",
+                    "maxlength" => 10
+                ), "REQUIRED", "Format should be: mm/dd/yyyy");
+                
+            ?>
+        </div>
+        <?php
+        UI::NewLine();
+        $form->RenderSubmitButton("Sign up");   
+        $form->RenderCancelButton("Cancel", 'home');
+        UI::NewLine();
+        $form->EndForm();
+        ?>
+        
+        <br>
+    </div>
+</div>
+<script type="text/javascript" src="web+/site/js/page-signup.js"></script>

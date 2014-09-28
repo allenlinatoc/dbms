@@ -1,0 +1,86 @@
+<div class="container main">
+    <div class="container-fluid main-placeholder">
+        <c class="left">Install Astra Student System</c>
+        <?php
+        
+        $form = new FORM('frmSignupAdmin', 'post', '', 'col-lg-6 col-md-7 col-sm-7');
+        
+        $form->AddLabel('Create an admin account');
+        $form->AddHidden('postType', '0');
+        $form->AddInput('Admin username', 'postUsername', 'text', 
+                array(
+                    'size' => 30,
+                    'required' => 'true',
+                    'maxlength' => 20
+                ), 'REQUIRED', 'Max. of 20 characters');
+        $form->AddInput('Password', 'postPass1', 'password', 
+                array(
+                    'size' => 30,
+                    'required' => 'true',
+                    'maxlength' => 30
+                ), 'REQUIRED', 'Max. of 30 characters');
+        $form->AddInput('Confirm password', 'postPass2', 'password', 
+                array(
+                    'size' => 30,
+                    'required' => 'true',
+                    'maxlength' => 30
+                ), 'REQUIRED');
+        $form->AddInput('Email', 'postEmail', 'email', 
+                array(
+                    'size' => 30,
+                    'required' => 'true',
+                    'maxlength' => 60
+                ), 'REQUIRED');
+        $form->AddLabel('Recover a forgotten admin password through a security question');
+        $form->AddInput('Security question', 'postSecquestion', 'text', 
+                array(
+                    'required' => 'true',
+                    'maxlength' => 75
+                ), 'REQUIRED', null, true);
+        $form->AddInput('Answer', 'postSecanswer', 'text',
+                array(
+                    'size' => 30,
+                    'required' => 'true',
+                    'maxlength' => 30
+                ), 'REQUIRED', 'The answer to security question');
+        
+        UI::HorizontalLine();
+        
+        $form->AddLabel('Database protocol configuration', 'large');
+        $form->AddLabel('Configure the MySQL database connection settings for this system to work.');
+        
+        $form->AddInput('Database name', 'postDbname', 'text', 
+                array(
+                    'size' => 30,
+                    'required' => 'true',
+                    'maxlength' => 30
+                ), 'REQUIRED', 'Name of an existing database');
+        $form->AddInput('MySQL username', 'postDbuser', 'text', 
+                array(
+                    'size' => 30,
+                    'required' => 'true',
+                    'maxlength' => 30
+                ), 'REQUIRED');
+        $form->AddInput('MySQL password', 'postDbpass', 'password', 
+                array(
+                    'size' => 30,
+                    'maxlength' => 30
+                ));
+        $form->AddInput('MySQL Host server', 'postDbhost', 'text', 
+                array(
+                    'size' => 30,
+                    'maxlength' => 40,
+                    'required' => 'true'
+                ), 'REQUIRED');
+        $form->AddInput('MySQL port', 'postDbport', 'text', 
+                array(
+                    'size' => 7,
+                    'maxlength' => 7
+                ));
+        $form->RenderSubmitButton('Submit');
+        $form->RenderCancelButton('Cancel', 'home');
+        
+        $form->EndForm();
+        ?>
+    </div>
+</div>

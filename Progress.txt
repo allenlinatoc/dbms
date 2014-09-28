@@ -1,0 +1,17 @@
+Monday, 21 July 2014, 0431H
+PROGRESS: "page/_admin/pendingusers.php" at line 39
+PROGRAMMER: Allen
+>> Create reports of Pending users for registration.
+On my way to add 'DEFAULT' property in Column headers of TABLE.php
+
+
+Tuesday, 5 August 2014, 0929H
+PROGRESS: "page/_user/instructor"
+	+ sb_home_courses(*.phtml/php)
+	+ home_courses(*.phtml/php)
+PROGRAMMER: Allen
+>> Fixed the whole COURSE module and homepage
+A certain COURSE module/homepage includes the whole
+portal for the said COURSE.
+Such portal includes Task distributions/postings, student management,
+attendance monitoring module, grading module, etc.

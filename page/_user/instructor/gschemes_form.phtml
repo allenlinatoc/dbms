@@ -1,0 +1,28 @@
+<div class="container main">
+    <div class="container-fluid main-placeholder">
+        <?php
+            $heading = 'Create new grading scheme';
+            if ($FORM_MODE=='EDIT') {
+                $heading = 'Edit scheme: ' . $postName;
+            }
+            echo '<c class="left">' . $heading . '</c>';
+        ?>
+        <br>
+        <?php
+            $frmGscheme = new FORM('frmGscheme', 'post', '', '');
+            $frmGscheme->AddInput('Scheme name', 'postName', 'text', array(
+                'required' => 'true',
+                'maxlength' => 40,
+                'size' => 32
+            ), 'REQUIRED', 'Max. of 40 characters', false, '', $postName);
+            $frmGscheme->AddTextarea('Description of this scheme', 'postDescription', $postDescription, array(
+                'rows' => '15'
+            ), 'DEFAULT', null, true);
+            UI::NewLine();
+            UI::NewLine();
+            $frmGscheme->RenderSubmitButton($FORM_MODE=='ADD' ? 'Create' : 'Save');
+            $frmGscheme->RenderCancelButton('Cancel', 'instructor-gschemes');
+            $frmGscheme->EndForm();
+        ?>
+    </div>
+</div>

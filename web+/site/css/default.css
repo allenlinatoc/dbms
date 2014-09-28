@@ -1,0 +1,265 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 21, 2014, 4:07:22 PM
+    Author     : Allen
+*/
+
+body {
+    background-color: #f7c398;
+    box-sizing: border-box;
+}
+
+/*==== Generic elements ====*/
+
+
+/** Caption headings
+*/ c {
+    display: block;
+    font-size: 160%;
+    font-weight: bold;
+    padding-top: 15px;
+    padding-bottom: 15px;
+} c.left {
+    text-align: left;
+} c.center {
+    text-align: center;
+} c.right {
+    text-align: right;
+} c.tableheading {
+    background: none;
+    /* border-top-left-radius: 10px; */
+    border: 1px solid #13007D;
+    border-bottom: none;
+    border-top-right-radius: 10px;
+    color: #13007D;
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    padding: 10px 20px;
+    width: auto;
+} /* Variation of fonts
+*/ c.mid {
+    font-size: 110%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}  c.navhead {
+    font-variant: small-caps;
+    font-size: 17px;
+    padding-top: 5px;
+} c.section {
+    color: #13007D;
+} c.underlined {
+    text-decoration: underline;
+} c.variant {
+    font-variant: small-caps;
+}
+
+label.label-inline {
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+/** ---- Main body content wrapper
+*/ .main {
+    box-sizing: border-box;
+    padding: 25px 0px;
+}
+/* Placeholder for main with background
+*/ .main-placeholder {
+    background: #e7dfd9;
+    box-sizing: border-box;
+    padding: 30px 3%;
+}
+/* Container for main, no background
+*/ .main-container {
+    box-sizing: border-box;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+/** ---- Form and control element styles
+*/ 
+/* Textarea
+*/.form-textarea {
+    margin-top: 5px;
+} .form-textarea-fullwidth {
+    margin-top: 5px;
+    width: 100%;
+}
+
+
+/** ---- Text emphasis
+*/
+.font-unimportant {
+    color: rgba(0,0,0,0.65);
+}
+
+
+/** ---- Notification box styles
+*/ .notif-danger {
+    background-color: #f7c398;
+    border: 3px solid rgba(255,0,0,0.6);
+} .notif-danger-isolate {
+    margin: 1%;
+    padding: 3%;
+}
+
+
+/** ---- Table styles for reports
+*/ .rpt-borderable * {
+    border: 1px solid rgba(0,0,0,0.1);
+}
+/* Cells
+*/ .rpt-cell {
+    font-size: 90%;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+} .rpt-cell-lined {
+    font-size: 90%;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+/* Medium-padded cells
+*/ .rpt-cell-mpad {
+    box-sizing: border-box;
+    padding: 3px 10px;
+}  .rpt-cell-lpad {
+    box-sizing: border-box;
+    padding: 10px 10px;
+}
+/* Column headers
+*/.rpt-header {
+    background-color: #13007D;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    color: #f7c398;
+    font-size: 90%;
+    padding: 2px 5px 10px 5px;
+} .rpt-header * {
+    border: 0px;
+} .rpt-header-noborder {
+    background-color: #13007D;
+    color: #fff;
+    padding: 2px 5px 10px 5px;
+    font-size: 90%;
+}
+
+/** ---- Notification stream style
+*/ div.notifstream-new {
+    border-left: 3px solid rgba(22,145,1,1);
+    border-bottom: 1px solid rgba(22,145,1,0.3);
+    padding: 3% 2%;
+    transition: all 0.2s ease;
+} div.notifstream {
+    color: rgba(0,0,0,0.5);
+    padding: 3% 2%;
+    border-left: 3px solid rgba(22,145,1,1);
+    transition: all 0.2s ease;
+} 
+/** Parts */
+div.notifstream-datetime {
+    font-size: 75%;
+    margin-bottom: 10px;
+    padding: 0px;
+    text-align: right;
+} 
+div.notifstream-control {
+    text-align: right;
+}
+div.notifstream:hover {
+    border-left: 3px solid rgba(22,145,1,1);
+    color: #000;
+    transition: all 0.2s ease;
+} div.notifstream-new:hover {
+    
+} div.notifstream-quote {
+    border-left: 3px solid rgba(19,0,125,0.5);
+    padding: 2%;
+}
+
+
+/** Message/Thread styles
+*/ .thread {
+    border: 1px solid rgba(22,145,1,0.1);
+    border-radius: 3px;
+    box-shadow: 0px 2px 0px rgba(0,0,0,0.2);
+    padding: 4% 2%;
+} .thread-button {
+    padding-bottom: 3px;
+    padding-top: 3px;
+    padding-left: 2%;
+    padding-right: 2%;
+}.thread-controls {
+    text-align: right;
+    padding-right: 10px;
+} .thread-datetime {
+    color: rgba(0,0,0,0.7);
+    font-size: 75%;
+    text-align: right;
+} .thread-message {
+    padding: 10px 25px;
+}
+
+/** ---- Sidebar Styling
+*/ .sys-sidebar {
+    margin:0px;
+    padding:0px 10px;
+}
+
+
+
+/*==== Bootstrap overrides ====*/
+
+a {
+    color: #169101;
+} a:hover {
+    color: #169101;
+}
+
+.btn-primary {
+    background: #169101;
+    border-color: #169101;
+}
+.btn-primary:hover {
+    background: #169f00;
+    border-color: #169101;
+}
+.btn-marginized {
+    margin: 2px;
+}
+
+.form-icontrol {
+  display: inline;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.label-primary, .label-default {
+    font-size: 87.5%;
+}
+.label-warning {
+    font-weight: normal;
+}
