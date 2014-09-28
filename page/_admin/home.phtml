@@ -11,7 +11,9 @@
             <?php
             if (count($a_pendingusers) > 0) {
                 echo '<div class="container">';
-                echo '<c class="mid">You got ' . count($a_pendingusers) . ' pending users</c>';
+                echo '<c class="mid">'
+                    . '<img src="web+/site/img/warning.png" width="35" height="35">  '
+                    . 'You got ' . count($a_pendingusers) . ' pending users</c>';
                 $a_list_userdata = array();
                 $count = 0;
                 foreach ($a_pendingusers as $user) {
@@ -31,11 +33,13 @@
             <?php
             if (!$hasSchoolyear) {
                 UI::Divbox(array('class'=>'container-fluid row-fluid'), 
-                        UI::HTML('p', array('style'=>'padding: 3%'), 
+                        UI::HTML('p', array(), 
                                 // inner-html
-                                '<img src="web+/site/img/alert.png">  No default school year is defined.'
+                                '<img src="web+/site/img/warning.png" width="35" height="35">  No default school year is defined.<br>'.PHP_EOL
+                              . '<a href="'.UI::GetPageUrl('admin-manage-schoolyears').'">Click here to fix this problem</a>'
                             , FALSE)
                     );
+                UI::HorizontalLine();
             }
             ?>
 
