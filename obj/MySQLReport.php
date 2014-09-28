@@ -12,7 +12,6 @@
  */
 class MySQLReport {
     # Properties ---------------------------------------------------------------
-
     /**
      * Array containing common cells' values<br>
      * <b>Array-parameters</b>:<br>

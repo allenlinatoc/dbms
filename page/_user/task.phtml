@@ -1,0 +1,74 @@
+<div class="container main">
+    <div class="container-fluid main-placeholder">
+        <div class="row">
+            <c class="col-lg-5 col-md-5 col-sm-5 left">Viewing task</c>
+            <div class="col-lg-7 col-md-7 col-sm-7" align="right">
+                <?php
+                UI::Button('Back to tasks', 'button', 'btn btn-warning btn-small'
+                      , UI::GetPageUrl(USER::Get(USER::TYPE)=='INSTRUCTOR' ? 'instructor-courses-home-tasks':'student-tasks'));
+                ?>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-7 col-md-7 col-sm-7">
+                <h3><i>Task details</i></h3>
+                <hr>
+                <b>Title: </b><?php echo $TASK_INFOS['title']; ?><br>
+                <b>Description:</b>
+                <p align="left" style="padding:1% 3%;">
+                    <?php echo nl2br($TASK_INFOS['message']); ?>
+                </p>
+                <?php
+                    $dateObj = new DateTime($TASK_INFOS['deaddate']);
+                    $datePosted = new DateTime($TASK_INFOS['postdate']);
+                    $remark = null;
+                    if (($dateObj->getTimestamp()-time()) > 0 ) {
+                        $remark = '('.DATEMAN::makeAgo($dateObj->getTimestamp(), time(), true).' left)';
+                    }
+                    else {
+                        $remark = UI::Button('Deadline reached', 'button', 'btn btn-danger btn-xs', null, false);
+                    }
+                ?>
+                <b>Posted: </b><?php echo $datePosted->format('F j, Y'); ?><br>
+                <b>Deadline: </b><?php echo $dateObj->format('F j, Y') .' ' . $remark; ?><br>
+                <br>
+                <br>
+            </div>
+            
+            <div class="col-lg-5 col-md-5 col-sm-5">
+                <h3><i>Attachments</i></h3>
+                <hr>
+                <ul style="list-style: circle;">
+                    <?php
+                    $ctr = 1;
+                    foreach($TASK_ATTACHMENTS as $attachment) {
+                        $path = $attachment['tokenvalue'];
+                        $ext = pathinfo($path, PATHINFO_EXTENSION);
+                        $downloads = intval($attachment['downcount']);
+                        echo '<li>' . UI::HTML('a', array('href' => UI::GetPageUrl('user-taskattachment', ['TA_ID'=>$attachment['id']]))
+                                        , 'Attachment '.($ctr).'</a> ('.strtoupper($ext).')', false)
+                                . ($downloads>0 ? (' - Downloaded '.$downloads.'x'):'')
+                           . '</li>';
+                        $ctr++;
+                    }
+                    ?>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <div class="row container">
+            <c class="left">Submissions</c>
+            <br>
+            <?php
+            // For un-checked submissions
+            
+            $unchecked = $sql->Query();
+            if (count($unchecked) > 0 || true) {
+                echo '<b><i>Pending submissions</i></b>';
+                
+            }
+            ?>
+        </div>
+    </div>
+</div>

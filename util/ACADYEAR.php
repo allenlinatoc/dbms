@@ -11,7 +11,7 @@
  *
  * @author Allen
  */
-final class ACADYEAR {
+class ACADYEAR {
     
     /**
      * Gets the ID of the current default schoolyear

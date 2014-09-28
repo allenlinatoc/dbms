@@ -25,8 +25,6 @@
             <input type="button" class="btn btn-primary btn-sm btn-marginized" onclick="return addFileUpload();" value="Attach more files">
             <br>
             <br>
-            <i><?php echo 'You can use basic HTML tags ('. htmlentities('<b>,<i>,<u>,<ul>,<li>').')'; ?></i>
-            <br>
             <br>
             <?php
             $frmTasks->AddTextarea('Task description', 'postMessage', $postMessage
@@ -35,11 +33,17 @@
                         'maxlength' => '1500',
                         'rows' => 10
                     ), 'REQUIRED', 'Max. of 1500 characters', true);
+            UI::NewLine(2);
+            $frmTasks->AddInput("Deadline", "postDeaddate", "text", array(
+                    'required' => 'required',
+                    'maxlength' => 10,
+                    'id' => 'postdeaddate',
+                    'readonly' => 'readonly'
+                ), "REQUIRED", "Format should be: mm/dd/yyyy");
             UI::HorizontalLine();
             $frmTasks->RenderSubmitButton('Submit');
-            $frmTasks->RenderCancelButton('Cancel');
+            $frmTasks->RenderCancelButton('Cancel', 'instructor-courses-home-tasks');
             UI::Button('Reset', 'button', 'btn btn-warning btn-sm', UI::GetPageUrl(Index::__GetPage()));
-            
             $frmTasks->EndForm();
             ?>
     </div>
@@ -47,7 +51,10 @@
 
 <script type="text/javascript" language="javascript">
     $('#postdeaddate').datepicker({
-        
+        numberOfMonths : 1,
+        changeMonth : true,
+        changeYear : true,
+        yearRange : 'c-0:c+1'
     });
    
 </script>

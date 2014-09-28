@@ -12,7 +12,6 @@
  * @author Allen
  */
 final class DATA {
-
     private static $SESS_DATALOCK_TIME = 'emit_kcolatad';
     private static $SESS_DATALOCK_KEY = '_yek_kcolatad';
     private static $SESS_DATALOCK_TARGETPAGES = 'segaptegrat_kcolatad';

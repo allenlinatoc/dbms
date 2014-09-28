@@ -1,5 +1,5 @@
 <?php
-
+DATA::openPassage('user-tasks', true, false);
 $usertype = strtoupper(USER::Get(USER::TYPE));
 $redirect_to = ($usertype=='INSTRUCTOR' ? 'instructor-courses' : 
         ($usertype=='STUDENT' ? 'student-mycourses' : 'home') );

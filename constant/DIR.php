@@ -1,6 +1,6 @@
 <?php
 
-final class DIR {
+class DIR {
     
     // Various values initialized in class 'Index' (indexer.php)
     

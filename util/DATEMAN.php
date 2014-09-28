@@ -5,7 +5,7 @@
  * Static utility class for basic Date management
  * @author Allen
  */
-final class DATEMAN {
+class DATEMAN {
     
     const DEFAULT_TZ = 'Asia/Manila';
     const DATE_FORMAT = 'Y-m-d';
@@ -62,8 +62,11 @@ final class DATEMAN {
         return intval(date('Y'));
     }
     
-    public static function makeAgo($timestamp) {
-        $difference = time() - $timestamp;
+    public static function makeAgo($timestamp, $from_what=NULL, $forward=false) {
+        if (is_null($from_what)) {
+            $from_what = time();
+        }
+        $difference = $forward ? abs($from_what - $timestamp) : $from_what-$timestamp;
         $periods = array("sec", "min", "hr", "day", "week", "month", "year", "decade");
         $lengths = array("60","60","24","7","4.35","12","10");
         for($j = 0; $difference >= $lengths[$j]; $j++) {
@@ -71,7 +74,7 @@ final class DATEMAN {
         }
                 $difference = round($difference);
         if($difference != 1) $periods[$j].= "s";
-        $text = "$difference $periods[$j] ago";
+        $text = "$difference $periods[$j]".(!$forward?'ago':'');
         return $text;
     }
     

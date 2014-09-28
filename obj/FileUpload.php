@@ -96,6 +96,7 @@ class FileUpload extends IOSys {
      */
     public function Save($destpath, $filename=null, $str_nameseparator='_')
     {
+        $destpath = rtrim($destpath, '/');
         // Will only be returned when saving is success
         $savedFilenames = array();
         

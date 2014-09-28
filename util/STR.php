@@ -198,9 +198,9 @@ final class STR {
      */
     public static function RemoveSpaces($string) {
         $result = '';
-        foreach($string as $char) {
-            if ($char!=' ') {
-                $result.=$char;
+        for ($x=0; $x<strlen($string); $x++) {
+            if ($string[$x] != ' ') {
+                $result .= $string[$x];
             }
         }
         return $result;

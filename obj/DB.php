@@ -168,7 +168,7 @@ class DB {
      * 
      * @param String $tablename Name of the target table
      * @param String $str_conditions The string containing the condition
-     * @return Array DBresult of the queried specifications
+     * @return Array|null DBresult of the queried specifications
      */
     public function GetRow($tablename, $str_conditions) {
         $this->
@@ -177,7 +177,7 @@ class DB {
                 Where($str_conditions);
         $result = $this->Query();
         
-        return      count($result) > 0 ? $return[0] : array();
+        return      (count($result) > 0 ? $result[0] : null);
     }
     
     /**
@@ -205,6 +205,17 @@ class DB {
         for ($x = 0; $x < count($a_fields); $x++) {
             $this->query .= $a_fields[$x] . ($x < count($a_fields) - 1 ? ',' : ') ');
         }
+        $this->__trailspaceQuery();
+        return $this;
+    }
+    
+    /**
+     * Limits the returned rows
+     * @param String $limit
+     * @return \DB
+     */
+    public function Limit($limit) {
+        $this->query .= 'LIMIT '.$limit;
         $this->__trailspaceQuery();
         return $this;
     }

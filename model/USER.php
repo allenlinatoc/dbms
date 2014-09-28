@@ -11,7 +11,7 @@
  *
  * @author Allen
  */
-final class USER {
+class USER {
     
     static $ADMIN_LANDPAGE = 'admin-home';
     static $USER_LANDPAGE = 'user-home';

@@ -4,6 +4,7 @@ DATA::openPassages([
     'user-home',
     'user-courses-home',
     'user-courses-messageboard',
+    'user-tasks',
     'user-profile',
     'instructor-courses',
     'instructor-courses-home-about',

@@ -2,9 +2,8 @@
 /**
  * Renders bootstrap-oriented forms
  */
-class FORM {
-    
-    
+
+class FORM {    
     /**
      * 
      * @param String $name

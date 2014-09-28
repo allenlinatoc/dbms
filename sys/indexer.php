@@ -3,7 +3,7 @@
 /**
  * Page rendering engine for INDEX pages. Useful for index page manipulations.
  */
-final class Index {
+class Index {
 
     public static $DEFAULT_PAGE = 'home';
     public static $FLASHES = array();

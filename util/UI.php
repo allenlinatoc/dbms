@@ -17,7 +17,6 @@
  * </ul>
  */
 class UI {
-
     /**
      * Generates URL of a page
      * @param String $page
@@ -179,6 +178,14 @@ class UI {
         $html .= $str_innerhtml . PHP_EOL;
         $html .= '</' . $tagname . '>' . PHP_EOL;
         if (!$is_render) {
+            return $html;
+        }
+        echo $html;
+    }
+    
+    public static function makeLink($url, $caption, $return=false) {
+        $html = '<a href="'.$url.'">'.$caption.'</a>';
+        if ($return) {
             return $html;
         }
         echo $html;
