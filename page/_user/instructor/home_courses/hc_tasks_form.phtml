@@ -1,6 +1,6 @@
 <script type="text/javascript" language="javascript">
     function addFileUpload() {
-        $('#spanfileinputs').prepend('<input type="file" name="postFile[]">').end();
+        $('#spanfileinputs').append('<input type="file" name="postFile[]" required="required">');
         return false;
     }
 </script>
@@ -20,7 +20,7 @@
                     ), 'REQUIRED', 'Max. of 40 characters', false, '', $postTitle);
             UI::HTML('span', array('id' => 'spanfileinputs'), 
                     // file inputs
-                    '<input type="file" name="postFile[]">', 
+                    '<input type="file" name="postFile[]" required="required">', 
                 true); ?>
             <input type="button" class="btn btn-primary btn-sm btn-marginized" onclick="return addFileUpload();">
             <?php
