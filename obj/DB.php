@@ -3,7 +3,7 @@
 /**
  * Static class for MySQLI implementations
  */
-final class DB {
+class DB {
 
     public $query = "";
     public $Lasterror = null;
