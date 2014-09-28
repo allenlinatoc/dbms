@@ -10,11 +10,17 @@ final class IOSys {
     public $data;
     public $path;
     
-    public function __construct($path) {
+    /**
+     * Initialize a new instance of IOSys
+     * @param String $path [null] The path to the file
+     */
+    public function __construct($path=null) {
         $this->path = $path;
         $this->data = '';
-        if (!file_exists($path)) {
-            echo '<br><b>Error IOSys::construct('.$path.')</b> - File not found<br>'.PHP_EOL;
+        if (!is_null($path)) {
+            if (!file_exists($path)) {
+                echo '<br><b>Error IOSys::construct('.$path.')</b> - File not found<br>'.PHP_EOL;
+            }
         }
     }
     
@@ -65,6 +71,15 @@ final class IOSys {
             return false;
         }
         return rename($this->path, $newfilename);
+    }
+    
+    /**
+     * Loads a file from path
+     * @param String $str_path The path of file to be loaded
+     */
+    public function LoadFile($str_path) {
+        $this->path = $path;
+        $this->data = '';
     }
     
     public function Write($is_append, $data, $is_createifnotexist=true) {
