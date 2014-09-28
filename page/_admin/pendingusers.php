@@ -6,7 +6,7 @@ DATA::openPassage('admin-action-pendings');
 $a_pendinglist = ACCOUNTS::getPendingUsers(array(
             'user.id', 'userpower_id', 'concat(fname, \' \', lname)', 'username'
                 ), true);
-$rptPendingusers = new MYSQLREPORT();
+$rptPendingusers = new MySQLReport();
 $rptPendingusers->setReportProperties(array(
             'width' => '100%',
             'align' => 'left'))

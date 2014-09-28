@@ -8,7 +8,7 @@ $sql->Select([ 'id', 'title', 'deaddate' ])
         ->Where('sy_id='.ACADYEAR::__getDefaultID().' '
         . 'AND course_id='.$COURSE_INFOS['id']);
 $result = $sql->Query();
-$report_Tasks = new MYSQLREPORT();
+$report_Tasks = new MySQLReport();
 $report_Tasks
         ->setReportProperties(array(
             'align' => 'center',

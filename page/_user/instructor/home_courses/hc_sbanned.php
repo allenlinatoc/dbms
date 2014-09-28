@@ -91,7 +91,7 @@ $sql->Select(array(
                 . 'AND d_student_course.sy_id = ' . $sy_id);
 $result_BannedStudents = $sql->Query();
 
-$report_BannedStudents = new MYSQLREPORT();
+$report_BannedStudents = new MySQLReport();
 $report_BannedStudents
         ->setReportProperties(array(
             'align' => 'center',

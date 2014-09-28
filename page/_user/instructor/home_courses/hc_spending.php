@@ -79,7 +79,7 @@ $sql->Select([
 
 $result_Pendingstudents = $sql->Query();
 
-$rptPendingstudents = new MYSQLREPORT();
+$rptPendingstudents = new MySQLReport();
 $rptPendingstudents->setReportProperties(array(
         'align' => 'center',
         'width' => '100%'

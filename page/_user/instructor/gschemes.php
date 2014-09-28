@@ -14,7 +14,7 @@ $sql->Select(['id', 'name', 'description'])
     ->From('gscheme');
 $sqlResult = $sql->Query();
 
-$rptSchemes = new MYSQLREPORT();
+$rptSchemes = new MySQLReport();
 $rptSchemes->setReportProperties(array(
     'align' => 'center',
     'width' =>' 100%'

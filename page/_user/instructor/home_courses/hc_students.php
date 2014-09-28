@@ -88,7 +88,7 @@ $sql->Select(array(
 
 $result_EnrolledStudents = $sql->Query();
 
-$report_EnrolledStudents = new MYSQLREPORT();
+$report_EnrolledStudents = new MySQLReport();
 $report_EnrolledStudents
         ->setReportProperties(array(
             'align' => 'center',

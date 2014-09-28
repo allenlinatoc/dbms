@@ -10,7 +10,7 @@
  * Class for generating reports from MySQL database
  * @author Allen
  */
-class MYSQLREPORT {
+class MySQLReport {
     # Properties ---------------------------------------------------------------
 
     /**
@@ -97,7 +97,7 @@ class MYSQLREPORT {
      * @param Array $a_rowdata Array of common cell values
      * @param Boolean $is_trailing Boolean value if these cell values should be
      *  trailing.
-     * @return \MYSQLREPORT
+     * @return \MySQLReport
      */
     public function addCommonCells($a_rowdata, $is_trailing) {
         array_push($this->CommonCells, array(
@@ -176,7 +176,7 @@ class MYSQLREPORT {
      * 
      * @param String $sql_columnName
      * @param String $str_sortmode (Optional = 'ASC') Possible values are 'ASC' or 'DESC'
-     * @return MYSQLREPORT
+     * @return MySQLReport
      */
     public function OrderBy($sql_columnName, $str_sortmode = 'ASC') {
         $str_sortmode = strtoupper($str_sortmode);

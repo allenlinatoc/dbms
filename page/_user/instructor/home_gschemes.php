@@ -67,7 +67,7 @@ $SCHEME_COMPONENTS = $sql->Query();
 
 
 # ---- Reports generation
-$rptComponents = new MYSQLREPORT();
+$rptComponents = new MySQLReport();
 $rptComponents->setReportProperties([
     'align' => 'center',
     'width' => '100%'

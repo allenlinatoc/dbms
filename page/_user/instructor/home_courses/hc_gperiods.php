@@ -148,7 +148,7 @@ $sql->Select(array(
                 . 'AND sy_id='.$sy_id);
 
 $result_Gradingperiods = $sql->Query();
-$report_Gradingperiods = new MYSQLREPORT();
+$report_Gradingperiods = new MySQLReport();
 $report_Gradingperiods
         ->setReportProperties(array(
             'width' => '100%',

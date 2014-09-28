@@ -20,7 +20,7 @@ $sql->Select([
             . ' AND d_student_course.status=2');
 $result_PendingCourses = $sql->Query();
 
-$rptPendingCourses = new MYSQLREPORT();
+$rptPendingCourses = new MySQLReport();
 $rptPendingCourses->setReportProperties(array(
     'align' => 'center',
     'width' => '100%'
@@ -73,7 +73,7 @@ $sql->Select([
             . ' AND d_student_course.status=0');
 $result_EnrolledCourses = $sql->Query();
 
-$rptEnrolledCourses = new MYSQLREPORT();
+$rptEnrolledCourses = new MySQLReport();
 $rptEnrolledCourses->setReportProperties([
     'align' => 'center',
     'width' => '100%'

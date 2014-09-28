@@ -79,7 +79,7 @@ $sql->Select(['user.id', 'concat(fname, \' \', lname)', 'user.status', 'username
         Where('user.id=profile.user_id');
 $sqlResult = $sql->Query();
 
-$rptUsers = new MYSQLREPORT(array(
+$rptUsers = new MySQLReport(array(
     [
         'CAPTION' => 'hidden_ID',
         'HIDDEN' => true

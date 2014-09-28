@@ -110,7 +110,7 @@ foreach($qresult as $qresultrow) {
     array_push($result_Instructors, $qresultrow['username']);
 }
 
-$rptManageCourses = new MYSQLREPORT();
+$rptManageCourses = new MySQLReport();
 $rptManageCourses->
         setReportProperties(array(
             'align' => 'left',

@@ -115,7 +115,7 @@ $sql->Select(array(
         ->OrderBy($postSortby, DB::ORDERBY_ASCENDING);
 $result = $sql->Query();
 //die($sql->query);
-$rptSchoolYear = new MYSQLREPORT();
+$rptSchoolYear = new MySQLReport();
 $rptSchoolYear->setReportProperties(array(
             'align' => 'center',
             'width' => '100%'))

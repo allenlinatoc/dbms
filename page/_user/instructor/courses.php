@@ -22,7 +22,7 @@ $db = new DB();
 $sqlResult = $db->Select([
     'id', 'name', 'code', 'description'
 ])->From('course')->Query();
-$rptCourses = new MYSQLREPORT();
+$rptCourses = new MySQLReport();
 $rptCourses->setReportProperties(array(
     'width' => '100%',
     'align' => 'center'

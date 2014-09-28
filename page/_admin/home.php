@@ -14,7 +14,7 @@ if (!USER::IsAdmin()) {
 # Data processing for pending users --------------------------------------------
 $a_pendingusers = ACCOUNTS::getPendingUsers([
     'user.id', 'username', 'fname', 'lname' ], true);
-$rptPendingusers = new MYSQLREPORT(array(
+$rptPendingusers = new MySQLReport(array(
     [
         'CAPTION' => 'ID',
         'width' => '10%',
