@@ -190,6 +190,21 @@ final class STR {
         }
         return $str_processed;
     }
+    
+    /**
+     * Removes the spaces in a string
+     * @param String $string
+     * @return String
+     */
+    public static function RemoveSpaces($string) {
+        $result = '';
+        foreach($string as $char) {
+            if ($char!=' ') {
+                $result.=$char;
+            }
+        }
+        return $result;
+    }
 
 }
 
