@@ -58,9 +58,9 @@ class FORM {
                           : $initial_value . '" ');
             
         # -- check for optional attributes ($options) and add each if exist
-        do {
+        for(reset($options),$x=0; $x<count($options); next($options),$x++) {
             echo strtolower(str_replace(" ", "", key($options))) . '="' . current($options) . '" ';
-        } while (next($options));
+        }
         echo '><br>';
     }
     
