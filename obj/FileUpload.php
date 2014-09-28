@@ -50,7 +50,7 @@ class FileUpload extends IOSys {
             $z = 0;
             do {
                 $extension = pathinfo($this->metadata['name'][$ctr], PATHINFO_EXTENSION);
-                $new_Filename = $filename . ($z>0 ? ($separator.$z):'') . '.' . ($is_addextensions ? $extension:'');
+                $new_Filename = $filename . ($z>0 ? ($separator.$z):'') . ($is_addextensions ? ('.'.$extension):'');
                 $IOsys = new IOSys($destpath . '/' . $new_Filename);
                 $z++;
             }
@@ -152,6 +152,7 @@ class FileUpload extends IOSys {
                 }
                 array_push($savedFilenames, $destpath.'/'.$filenames[key($filenames)]);
             }
+            return $filenames;
         }
         else {
             // filter out array filenames since we're only uploading 
