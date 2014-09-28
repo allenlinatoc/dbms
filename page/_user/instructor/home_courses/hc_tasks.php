@@ -33,6 +33,6 @@ $report_Tasks
         ));
 $report_Tasks
         ->loadResultdata($result)
-        ->defineEmptyMessage('No tasks');
+        ->defineEmptyMessage('No tasks<br><br><br><br>');
 
 ?>
