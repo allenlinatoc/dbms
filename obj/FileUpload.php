@@ -32,7 +32,7 @@ class FileUpload extends IOSys {
         }
     }
     
-    public function CreateUniqueFilenames($destpath, $a_filenames, $separator)
+    public function CreateUniqueFilenames($destpath, $a_filenames, $separator, $is_addextensions=true)
     {
         // resulting filenames
         $result = array(); 
@@ -50,7 +50,7 @@ class FileUpload extends IOSys {
             $z = 0;
             do {
                 $extension = pathinfo($this->metadata['name'][$ctr], PATHINFO_EXTENSION);
-                $new_Filename = $filename . ($z>0 ? ($separator.$z):'') . '.' . $extension;
+                $new_Filename = $filename . ($z>0 ? ($separator.$z):'') . '.' . ($is_addextensions ? $extension:'');
                 $IOsys = new IOSys($destpath . '/' . $new_Filename);
                 $z++;
             }
@@ -142,7 +142,7 @@ class FileUpload extends IOSys {
             }
             
             // Generating unique filenames from existing filenames
-            $filenames = $this->CreateUniqueFilenames($destpath, $filenames, $str_nameseparator);
+            $filenames = $this->CreateUniqueFilenames($destpath, $filenames, $str_nameseparator, !is_null($filename));
             
             // Saving files
             for(reset($filenames),$x=0; $x<count($filenames); $x++,next($filenames))
