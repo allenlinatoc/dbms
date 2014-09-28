@@ -39,6 +39,11 @@ final class DIR {
      * @var String
      */ static public $SYSTEM = 'sys/';
      
+     /**
+      * Uploaded files directory
+      * @var String
+      */ static public $UPLOAD = 'web+/site/uploads/';
+     
     /**
      * Web components directory (css, 
      */ static public $WEB = 'web+/';
