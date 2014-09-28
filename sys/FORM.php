@@ -4,7 +4,6 @@
  */
 class FORM {
     
-    public $is_editform;
     
     /**
      * 
@@ -12,15 +11,20 @@ class FORM {
      * @param String $method
      * @param String $action
      * @param String $class The class for this form's parent container
-     * @param String $align Alignment of the form
+     * @param String $align [left] Alignment of the form
+     * @param Array(assoc) $options [array()] Associative array of HTML attributes of this form
      */
-    public function __construct($name, $method, $action, $class, $align="left", $is_editform=false) {
-        echo '<div class="container-fluid '.$class.'" align="'.$align.'">';
-        echo '<form name="'.$name.'" method="'.$method.'" action="' . $action . '" class="form" role="form">';
-        $this->is_editform = $is_editform;
-        if ($this->is_editform) {
-            DATA::openPassage();
+    public function __construct($name, $method, $action, $class, $align="left", $options=array()) {
+        $html = '<div class="container-fluid '.$class.'" align="'.$align.'">';
+        $html .= '<form name="'.$name.'" method="'.$method.'" action="' . $action . '" class="form" role="form" ';
+        if (count($options) > 0) {
+            for(reset($options),$x=0; $x<count($options); $x++,next($options)) {
+                $html .= key($options).'="'.current($options).'" ';
+            }
+            reset($options);
         }
+        $html = trim($html) . '>';
+        echo $html;
     }
     
     /**
