@@ -9,8 +9,8 @@
     <div class="container-fluid main-placeholder">
         <c class="left">New task</c>
             <?php
-            $frmTasks = new FORM('frmTasks', 'post', '', '', 'left', array(
-                'enctype' => 'multipart/enctype'
+            $frmTasks = new FORM('frmTasks', 'post', '?page='.Index::__GetPage(), '', 'left', array(
+                'enctype' => 'multipart/form-data'
             ));
             $frmTasks->AddInput('Task title', 'postTitle', 'text', 
                     array(
@@ -20,13 +20,34 @@
                     ), 'REQUIRED', 'Max. of 40 characters', false, '', $postTitle);
             UI::HTML('span', array('id' => 'spanfileinputs'), 
                     // file inputs
-                    '<input type="file" name="postFile[]" required="required">', 
+                    '<input type="file" name="postFile[]" id="postFile" required="required">', 
                 true); ?>
-            <input type="button" class="btn btn-primary btn-sm btn-marginized" onclick="return addFileUpload();">
+            <input type="button" class="btn btn-primary btn-sm btn-marginized" onclick="return addFileUpload();" value="Attach more files">
+            <br>
+            <br>
+            <i><?php echo 'You can use basic HTML tags ('. htmlentities('<b>,<i>,<u>,<ul>,<li>').')'; ?></i>
+            <br>
+            <br>
             <?php
+            $frmTasks->AddTextarea('Task description', 'postMessage', $postMessage
+                    , array(
+                        'required' => 'required',
+                        'maxlength' => '1500',
+                        'rows' => 10
+                    ), 'REQUIRED', 'Max. of 1500 characters', true);
+            UI::HorizontalLine();
             $frmTasks->RenderSubmitButton('Submit');
             $frmTasks->RenderCancelButton('Cancel');
+            UI::Button('Reset', 'button', 'btn btn-warning btn-sm', UI::GetPageUrl(Index::__GetPage()));
+            
             $frmTasks->EndForm();
             ?>
     </div>
 </div>
+
+<script type="text/javascript" language="javascript">
+    $('#postdeaddate').datepicker({
+        
+    });
+   
+</script>

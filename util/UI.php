@@ -16,7 +16,7 @@
  * <li>Lists</li>
  * </ul>
  */
-final class UI {
+class UI {
 
     /**
      * Generates URL of a page
