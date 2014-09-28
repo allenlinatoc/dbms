@@ -5,7 +5,7 @@
  *
  * @author Allen
  */
-final class IOSys {
+class IOSys {
     
     public $data;
     public $path;
@@ -14,11 +14,11 @@ final class IOSys {
      * Initialize a new instance of IOSys
      * @param String $path [null] The path to the file
      */
-    public function __construct($path=null) {
+    public function __construct($path=null, $is_debugmode=false) {
         $this->path = $path;
         $this->data = '';
         if (!is_null($path)) {
-            if (!file_exists($path)) {
+            if (!file_exists($path) && $is_debugmode) {
                 echo '<br><b>Error IOSys::construct('.$path.')</b> - File not found<br>'.PHP_EOL;
             }
         }
@@ -26,6 +26,10 @@ final class IOSys {
     
     public function Delete() {
         return unlink($this->path);
+    }
+    
+    public function Exists() {
+        return file_exists($this->path);
     }
     
     public function MoveFile($newpath) {
