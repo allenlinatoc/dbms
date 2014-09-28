@@ -34,4 +34,8 @@ $rptPendingusers = new MYSQLREPORT(array(
     ]
 ));
 
+$sql = new DB();
+$sql->Select()->From('sy')->Where('is_default=1');
+$hasSchoolyear = count($sql->Query()) > 0;
+
 ?>

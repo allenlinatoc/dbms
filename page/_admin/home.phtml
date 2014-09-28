@@ -28,6 +28,16 @@
                 UI::HorizontalLine();
             }
             ?>
+            <?php
+            if (!$hasSchoolyear) {
+                UI::Divbox(array('class'=>'container-fluid row-fluid'), 
+                        UI::HTML('p', array('style'=>'padding: 3%'), 
+                                // inner-html
+                                '<img src="web+/site/img/alert.png">  No default school year is defined.'
+                            , FALSE)
+                    );
+            }
+            ?>
 
     </div>
 </div>
