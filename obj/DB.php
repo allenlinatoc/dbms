@@ -137,15 +137,21 @@ class DB {
      * Execute the constructed query
      * @return \DB
      */
-    public function Execute($query = null) {
+    public function Execute($query = null, $is_debugmode=false) {
         if (!is_null($query)) {
             $this->query = $query;
         }
         $this->__cleanQuery();
-        if (!$this->mysqli->query($this->query)) {
+        if ( $is_debugmode )
+        {
+            echo 'Executing '.$this->query.'<br>';
+        }
+        if (!$this->mysqli->query($this->query)) 
+        {
             $this->Lasterror = $this->mysqli->error;
             $this->Lasterrno = $this->mysqli->errno;
-        } else {
+        } 
+        else {
             $this->Lasterror = null;
             $this->Lasterrno = null;
         }
@@ -250,12 +256,16 @@ class DB {
      * @param $query (Optional) String of query to be run in replace.
      * @return Array(Assoc) The assoc-array containing the returned rows
      */
-    public function Query($query = null) {
+    public function Query($query = null, $is_debugmode=false) {
         $result_object = array();
         if (!is_null($query)) {
             $this->query = $query;
         }
         
+        if ( $is_debugmode )
+        {
+            echo 'Querying <i>'.$this->query.'</i>';
+        }
         $result = $this->mysqli->query($this->query);
         if ($result) {
             # SUCCESS : Process the result to an array stack
