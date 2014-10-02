@@ -1,17 +1,16 @@
 <?php
-
 if (DATA::__IsPassageOpen()) {
     DATA::GenerateIntentsFromGET();
     #
     # ---- filtered
-    
     if (DATA::__HasIntentData([ 'MODE', 'TARGET_ID' ])) {
         $MODE = DATA::__GetIntentSecurely('MODE');
         $TARGET_ID = DATA::__GetIntentSecurely('TARGET_ID');
         
         // Getting info about the student
         $sql = new DB();
-        $sql->Select([ 'concat(profile.fname,\' \',profile.lname) AS fullname' ])
+        $sql
+                ->Select([ 'concat(profile.fname,\' \',profile.lname) AS fullname' ])
                 ->From('user,profile')
                 ->Where('user.id=profile.user_id '
                         . 'AND user.id='.$TARGET_ID);
@@ -63,10 +62,29 @@ if (DATA::__IsPassageOpen()) {
             $message = 'Are you sure you want to <i>delete</i> '.$fullname.'?<br><br>'.PHP_EOL.
                 '<b>Warning: </b><i>This action is <b>permanent</b>. Doing this will completetly delete all user data of this account!</i>';
         }
+        else if ( $MODE == 'REQ_UNBAN' ) {
+            // except for this one
+            //      we don't need to show confirm dialog
+            //      direct to action
+            $sql = new DB();
+            $sql->Query('CALL setUserStatus('.$TARGET_ID.',0)');
+            $is_success = $sql->Execute()->__IsSuccess();
+            if ($is_success) {
+                FLASH::addFlash('User has been successfully unbanned.', Index::__GetPage(), 'PROMPT', true);
+            } else {
+                FLASH::addFlash('Something went wrong.', Index::__GetPage(), 'ERROR', true);
+            }
+            DATA::DeleteIntents(array(
+                'MODE', 'TARGET_ID', 'DIALOG_RESULT'
+            ), true, true);
+        }
+        
         $dialogObject = new DIALOG($title);
-        $dialogObject->SetPageCallback(Index::__GetPage())
+        $dialogObject
+                ->SetPageCallback(Index::__GetPage())
                 ->SetMessage($message);
-        $dialogObject->AddButton(DIALOG::B_YES)
+        $dialogObject
+                ->AddButton(DIALOG::B_YES)
                 ->AddButton(DIALOG::B_NO)
                 ->AddButton(DIALOG::B_CANCEL);
         $dialogObject->ShowDialog();
@@ -74,9 +92,11 @@ if (DATA::__IsPassageOpen()) {
 }
 
 $sql = new DB();
-$sql->Select(['user.id', 'concat(fname, \' \', lname)', 'user.status', 'username'])->
-        From('user,profile')->
-        Where('user.id=profile.user_id');
+$sql
+    ->Select(['user.id', 'concat(fname, \' \', lname)', 'user.status', 'username'])
+    ->From('user,profile')
+    ->Where('user.id=profile.user_id');
+
 $sqlResult = $sql->Query();
 
 $rptUsers = new MySQLReport(array(
@@ -127,7 +147,8 @@ $rptUsers = new MySQLReport(array(
 $rptUsers->setReportProperties(array(
     'width' => '100%',
     'align' => 'center'
-))->setReportCellstemplate(array(
+))
+  ->setReportCellstemplate(array(
     [], [], [], [
         'class' => 'rpt-cell-lined'
     ], [
