@@ -14,7 +14,11 @@ if (DATA::__IsPassageOpen()) {
         $TARGET_ID = intval(DATA::__GetIntent('TARGET_ID'));
         $sql = new DB();
         // fetching of Student information
-        $STUDENT_INFOS = $sql->Select()->From('user, profile')->Where('user.id=profile.user_id')->Query();
+        $STUDENT_INFOS = $sql
+                ->Select()
+                ->From('user, profile')
+                ->Where('user.id=profile.user_id '
+                        . 'AND user.id='.$TARGET_ID)->Query();
         if (count($STUDENT_INFOS) > 0) {
             $STUDENT_INFOS = $STUDENT_INFOS[0];
         }
