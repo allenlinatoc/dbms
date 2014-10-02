@@ -16,7 +16,8 @@ $sql    ->Select([ 'gperiod.name', 'd_course_gperiod.id' ])
                 . 'AND course_id='.$COURSE_INFOS['id'].' '
                 . 'AND sy_id='.$sy_id);
 $result = $sql->Query();
-foreach($result as $row) {
+foreach($result as $row)
+{
     $gperiods[$row['name']] = $row['id'];
 }
 
@@ -24,6 +25,11 @@ foreach($result as $row) {
 if (DATA::__HasPostData('postGperiod'))
 {
     $postGperiod = DATA::__GetPOST('postGperiod', true, true);
+}
+else
+{
+    // get the first grading period as its default
+    $postGperiod = $result[0]['id'];
 }
 
 // Prepare grade table

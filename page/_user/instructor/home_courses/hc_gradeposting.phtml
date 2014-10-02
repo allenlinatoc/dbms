@@ -6,13 +6,17 @@
         <c class="left">Grade posting</c>
         <div class="row-fluid">
             <?php
-            echo 'Gperiod is '.$postGperiod;
-            
+            // echo 'Gperiod is '.$postGperiod;
             $frmGperiod = new FORM('frmGperiod', 'post', '', '', 'left', array('id' => 'frmgperiod'));
             $frmGperiod->AddDropdownSimple('Grading period', 'postGperiod', $gperiods, array(
                 'required' => 'true',
                 'onchange' => 'changeGperiod();'
             ), '', $postGperiod);
+            if (DATA::__HasPostData())
+            {
+                // display 'Reset' button when selection is changed
+                UI::Button('Reset', 'button', 'btn btn-primary btn-small btn-marginized', UI::GetPageUrl(Index::__GetPage()));
+            }
             $frmGperiod->EndForm();
             ?>
         </div>
