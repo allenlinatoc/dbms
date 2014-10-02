@@ -135,14 +135,18 @@ class FORM {
         // select
         $html .= '<select name="'.$name.'" ';
         $html .= 'class="form-inline form-icontrol '.(is_null($class)?'':$class).'" ';
-        for ($i=0,reset($choices); $i<count($options); $i++,next($options))
+        for ($i=0,reset($options); $i<count($options); $i++,next($options))
         {
             $html .= key($options).'="'.current($options).'" ';
         } $html = trim($html) . '>'.PHP_EOL;
         // options
         for ($i=0,reset($choices); $i<count($choices); $i++,next($choices)) 
         {
-            $html .= '<option value="'.(current($choices)).'">';
+            $html .= '<option value="'.(current($choices)).'"';
+            if (!is_null($selectedvalue) && $selectedvalue==current($choices)) {
+                $html = trim($html) .' selected';
+            }
+            $html .= '>';
             $html .= key($choices).'</option>'.PHP_EOL;
         }
         $html .= '</select>';
