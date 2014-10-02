@@ -27,6 +27,26 @@ class ACADYEAR {
         return -1;
     }
     
+    public static function __getDefaultGradingPeriod($courseId) {
+        $PERIOD_INFOS = array();
+        // validate if this course has default grading period
+        $sql = new DB();
+        $sql->Select()
+                ->From('d_course_gperiod')
+                ->Where('course_id='.$courseId.' '
+                        . 'AND sy_id='.ACADYEAR::__getDefaultID().' '
+                        . 'AND is_current=1');
+        $result_Gperiod = $sql->Query();
+        if (count($result_Gperiod) <= 0) {
+            FLASH::addFlash('No default grading period is defined for course '.$SB_COURSE_NAME.'. Please try again later.', 'user-home', 'ERROR', true);
+            UI::RedirectTo('user-home');
+        }
+        else {
+            $PERIOD_INFOS = $result_Gperiod[0];
+        }
+        return $PERIOD_INFOS;
+    }
+    
     /**
      * Returns a boolean value if the system has existing school year or not
      * @return boolean
