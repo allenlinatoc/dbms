@@ -30,7 +30,7 @@ if (DATA::__HasPostData()) {
         $sql = new DB();
         $sql    ->Select('1')
                 ->From('user')
-                ->Where('username LIKE \'%' . $postUsername . '%\'');
+                ->Where('username = \''.strtolower($postUsername). '\'');
         $result_UsernameCheck = $sql->Query();
         FLASH::checkAndAdd(array(
             'Username should not contain spaces!' => STR::__HasSpaces($postUsername),

@@ -19,7 +19,7 @@ if (DATA::__IsPassageOpen()) {
         DATA::CreateIntent('COURSE_INFOS', $COURSE_INFOS);
     }
 } else {
-    UI::RedirectTo('instructor-courses');
+    UI::RedirectTo(USER::Get(USER::TYPE).'-courses');
 }
 
 if (DATA::__HasPostData('postMessage')) {

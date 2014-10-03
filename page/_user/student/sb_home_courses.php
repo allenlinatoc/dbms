@@ -1,5 +1,7 @@
 <?php
 
+$COURSE_INFOS = DATA::__GetIntent('COURSE_INFOS');
+
 // validate if this student is banned from accessing this course
 //      or not
 if (USER::Get(USER::TYPE)=='STUDENT') 

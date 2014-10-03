@@ -14,7 +14,7 @@ if (DATA::__HasPostData(array(
 {
     $postTitle = DATA::__GetPOST('postTitle');
     $postMessage = DATA::__GetPOST('postMessage');
-    $postDeaddate = DATA::__GetPOST('postDeaddate', true, true);
+    $postDeaddate = 'STR_TO_DATE("'.DATA::__GetPOST('postDeaddate').'", "%m/%d/%Y")';
     $fileUpload = new FileUpload('postFile');
     $fileUpload->SetBlockedExtensions(array(
         'exe',
@@ -38,15 +38,28 @@ if (DATA::__HasPostData(array(
     if (FLASH::__getType()=='PROMPT') {
         // Create task
         $sql = new DB();
-        $sql->Execute('CALL createTask('.$COURSE_INFOS['id'].',"'.$postTitle.'", "'.$postMessage.'", "'.$postDeaddate.'")');
-        $is_success = $sql->__IsSuccess();
-        
-        $taskId = -1;
+        $sql->Select(['id'])
+                ->From('d_course_gperiod')
+                ->Where('course_id='.$COURSE_INFOS['id'].' '
+                        . 'AND sy_id='.ACADYEAR::__getDefaultID().' '
+                        . 'AND is_current=1');
+        $periodId = intval($sql->Query()[0]['id']);
+        $sql = new DB();
+        $sql->InsertInto('task', array('course_id', 'period_id', 'sy_id', 'title', 'message', 'postdate', 'deaddate'))
+                ->Values(array(
+                    $COURSE_INFOS['id'],
+                    $periodId,
+                    ACADYEAR::__getDefaultID(),
+                    $postTitle,
+                    $postMessage,
+                    'localtime()',
+                    $postDeaddate
+                ), [3,4]);
+        $is_success = $sql->Execute()->__IsSuccess();
+        $sql = new DB();
+        $sql->Select(['id'])->From('task')->OrderBy('id', DB::ORDERBY_DESCENDING)->Limit('1');
+        $taskId = $sql->Query()[0]['id'];
         if ($is_success) {
-            $sql = new DB();
-            $sql->Select(['id'])->From('task')->OrderBy('id', DB::ORDERBY_DESCENDING)->Limit('1');
-            $taskId = $sql->Query()[0]['id'];
-            
             $filenames = $fileUpload->Save(DIR::$UPLOAD, (STR::RemoveSpaces(strtoupper($COURSE_INFOS['name'])).$COURSE_INFOS['id']));
             foreach($filenames as $filename) {
                 $sql = new DB();
@@ -55,13 +68,13 @@ if (DATA::__HasPostData(array(
                         ->Values(array(
                             $taskId, USER::Get(USER::ID), $filename, 'date(localtime())'
                         ), [2]);
-                $is_success = $sql->Execute(null,true)->__IsSuccess();
+                $is_success = $sql->Execute()->__IsSuccess();
                 if (!$is_success) {
                     // Revert changes on failure
                     $sql = new DB();
                     $sql->DeleteFrom('taskattachment')
                             ->Where('task_id='.$taskId);
-                    $sql->Execute(null,true);
+                    $sql->Execute();
                     foreach($filenames as $fname) {
                         $IOsys = new IOSys(DIR::$UPLOAD.'/'.$fname);
                         $IOsys->Delete();
@@ -77,13 +90,6 @@ if (DATA::__HasPostData(array(
         
         if ($is_success) {
             FLASH::addFlash('Task has been successfully added!', 'instructor-courses-home-tasks', 'PROMPT', true);
-        }
-        else if ( $taskId != -1 ) {
-            $sql = new DB();
-            $sql
-                    ->DeleteFrom('task')
-                    ->Where('id='.$taskId);
-            $sql->Execute();
         }
         UI::RedirectTo('instructor-courses-home-tasks');
     }

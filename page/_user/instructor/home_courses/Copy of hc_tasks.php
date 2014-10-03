@@ -58,8 +58,7 @@ $sql = new DB();
 $sql->Select([ 'id', 'title', 'deaddate' ])
         ->From('task')
         ->Where('sy_id='.ACADYEAR::__getDefaultID().' '
-        . 'AND course_id='.$COURSE_INFOS['id'].' '
-        . 'AND period_id='.ACADYEAR::__getDefaultGradingPeriod($COURSE_INFOS['id'])['id']);
+        . 'AND course_id='.$COURSE_INFOS['id']);
 $result = $sql->Query();
 $report_Tasks = new MySQLReport();
 $report_Tasks

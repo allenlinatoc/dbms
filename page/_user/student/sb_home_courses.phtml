@@ -1,11 +1,12 @@
 <div class="col-lg-3 col-md-3 col-sm-3 main-placeholder">
     <c class="left">Panel sections</c>
     <ul style="margin:0px; padding:0px 10px;">
-        <li><?php UI::makeNavigationLink('Dashboard home', UI::GetPageUrl('user-courses-home'), 'user-courses-home'); ?></li>
+        <li><?php UI::makeNavigationLink('Home ('.$COURSE_INFOS['name'].')', UI::GetPageUrl('user-courses-home'), 'user-courses-home'); ?></li>
         <li><?php UI::makeNavigationLink('Message board', UI::GetPageUrl('user-courses-messageboard'), 'user-courses-messageboard'); ?></li>
-        <li><?php UI::makeNavigationLink('My attendance', UI::GetPageUrl('student-mycourses'), 'student-course-attendance'); ?></li>
-        <li><?php UI::makeNavigationLink('Tasks/Assignments', UI::GetPageUrl('student-attendancereports'), 'student-courses-tasks'); ?></li>
+        <li><?php UI::makeNavigationLink('Tasks/Assignments', UI::GetPageUrl('student-tasks'), 'student-courses-tasks'); ?></li>
         <li><?php UI::makeNavigationLink('Grade reports', UI::GetPageUrl('student-gradereports'), 'student-courses-gradereports'); ?></li>
+        <li><?php UI::makeNavigationLink('<i>Back to My Courses</i>', UI::GetPageUrl('student-mycourses'), 'student-mycourses'); ?></li>
+        <li><?php UI::makeNavigationLink('<i>Back to User dashboard</i>', UI::GetPageUrl('user-home'), 'user-home'); ?></li>
     </ul>
     <hr>
     <ul style="margin:0px; padding:0px 10px;">

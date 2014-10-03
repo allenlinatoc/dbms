@@ -13,6 +13,9 @@
         <li><?php UI::makeNavigationLink('About this course',
                 UI::GetPageUrl('instructor-courses-home-about'), 'instructor-courses-home-about');
         ?></li>
+        <li><?php UI::makeNavigationLink('<i>Back to My Courses list</i>',
+                UI::GetPageUrl('instructor-courses'), 'instructor-courses');
+        ?></li>
         <li><?php UI::makeNavigationLink('<i>Back to User dashboard</i>',
                 UI::GetPageUrl('user-home'), 'user-home');
         ?></li>
@@ -33,6 +36,10 @@
     <hr>
     <c class="navhead underlined">Grading management</c>
     <ul class="sys-sidebar">
+        <li><?php UI::makeNavigationLink('Grade posting',
+                UI::GetPageUrl('instructor-courses-home-gposting'), 'instructor-courses-home-gposting'); ?></li>
+        <li><?php UI::makeNavigationLink('Grades overview report',
+                UI::GetPageUrl('instructor-courses-home-gview'), 'instructor-courses-home-gview'); ?></li>
         <li><?php UI::makeNavigationLink('Grading periods', 
                 UI::GetPageUrl('instructor-courses-home-gperiods'), 'instructor-courses-home-gperiods');
         ?></li>

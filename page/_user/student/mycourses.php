@@ -2,8 +2,11 @@
 
 DATA::openPassages([
     'student-action-cancelpendingcourse',
+    'student-gradereports',
     'student-mycourses-enroll',
-    'user-courses-home'
+    'student-tasks',
+    'user-courses-home',
+    'user-courses-messageboard'
 ]);
 
 /**

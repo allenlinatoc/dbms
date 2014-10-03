@@ -4,8 +4,9 @@
             <c class="col-lg-5 col-md-5 col-sm-5 left">Viewing task</c>
             <div class="col-lg-7 col-md-7 col-sm-7" align="right">
                 <?php
+                $userType = USER::Get(USER::TYPE);
                 UI::Button('Back to tasks', 'button', 'btn btn-warning btn-small'
-                      , UI::GetPageUrl(USER::Get(USER::TYPE)=='INSTRUCTOR' ? 'instructor-courses-home-tasks':'student-tasks'));
+                      , UI::GetPageUrl($userType=='INSTRUCTOR' ? 'instructor-courses-home-tasks':'student-mycourses-tasks'));
                 ?>
             </div>
         </div>
@@ -57,17 +58,70 @@
             </div>
         </div>
         <hr>
-        <div class="row container">
-            <c class="left">Submissions</c>
+        <?php
+            
+        ?>
+        <div class="row container-fluid">
+            <div class="row">
+                <c class="col-lg-6 col-md-6 col-sm-6 left">Submissions</c>
+                <div class="col-lg-6 col-md-6 col-sm-6" align="right">
+                    <?php
+                    if ($userType=='STUDENT') {
+                        // check if this user has submitted already
+                        $sql = new DB();
+                        $sql
+                                ->Select()
+                                ->From('taskentry')
+                                ->Where('task_id='.$TASK_INFOS['id'].' '
+                                        . 'AND student_id='.USER::Get(USER::ID));
+                        $submissionInfo = $sql->Query();
+                        
+                        UI::Button('Submit an entry', 'button', 'btn btn-primary btn-small',
+                                UI::GetPageUrl('student-mycourses-tasks-submit', array( 'TASK_ID' => $TASK_INFOS['id'] )));
+                        
+                    }
+                    ?>
+                </div>
+            </div>
             <br>
             <?php
             // For un-checked submissions
-            
-            $unchecked = $sql->Query();
-            if (count($unchecked) > 0 || true) {
-                echo '<b><i>Pending submissions</i></b>';
-                
+            if (USER::Get(USER::TYPE)=='INSTRUCTOR') {
+                UI::HTML('c', ['class'=>'tableheading mid'], 'Pending submissions');
+                $report_Unchecked->renderReport();
             }
+            else if (USER::Get(USER::TYPE)=='STUDENT') {
+                if (count($submissionInfo) > 0) {
+                    // If there's a submission, show details
+                    $submissionInfo = $submissionInfo[0];
+                    echo '<p style="padding:3% 5%">';
+                        echo '<b>You have submitted last</b> '.$submissionInfo['datetime'].' ';
+                        UI::Button('Download the file', 'button', 'btn btn-primary btn-sm btn-marginized',
+                                UI::GetPageUrl('user-taskattachment', ['TE_ID'=>$submissionInfo['id']]));
+                        if ($submissionInfo['is_accepted']!=1) {
+                            UI::Button('Cancel submission', 'button', 'btn btn-danger btn-sm btn-marginized', 
+                                    UI::GetPageUrl(Index::__GetPage(), [
+                                        'MODE' => 'REQ_CANCEL_TE',
+                                        'TARGET_ID' => $submissionInfo['id']
+                                    ]));
+                        }
+                        UI::NewLine(2);
+                        echo '<b>Status: </b>'.($submissionInfo['is_accepted']==1 ? 'Accepted/Checked':'Pending');
+                    echo '</p>';
+                }
+                else {
+                    echo '<p style="padding: 3% 5%">You haven\'t submitted yet in this course.</p>';
+                }
+            }
+            ?>
+        </div>
+        <hr>
+        <div class="row container-fluid">
+            <c class="tableheading mid">Checked submissions</c>
+            <?php
+            // For un-checked submissions
+            
+            $report_Checked->renderReport();
             ?>
         </div>
     </div>

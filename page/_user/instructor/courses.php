@@ -11,6 +11,8 @@ DATA::openPassages([
     'instructor-courses-home-attendance',
     'instructor-courses-home-gperiods',
     'instructor-courses-home-gposting',
+    'instructor-courses-home-gposting-form',
+    'instructor-courses-home-gview',
     'instructor-courses-home-tasks',
     'instructor-courses-home-tasks-form',
     'instructor-courses-home-spending',
