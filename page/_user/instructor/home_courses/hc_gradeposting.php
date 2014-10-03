@@ -7,6 +7,72 @@ $postGperiod = '';
 $COURSE_INFOS = DATA::__GetIntent('COURSE_INFOS');
 $sy_id = ACADYEAR::__getDefaultID();
 
+# -------------------------------------
+DATA::GenerateIntentsFromGET();
+#
+# ---- requests filtered
+if (DATA::__HasIntentData([ 'MODE', 'DCG_ID' ]))
+{
+    $MODE = DATA::__GetIntentSecurely('MODE');
+    $DCG_ID = DATA::__GetIntentSecurely('DCG_ID');
+    
+    if (DATA::__HasIntentData('DIALOG_RESULT'))
+    {
+        if (DATA::__GetIntentSecurely('DIALOG_RESULT')==DIALOG::R_AFFIRMATIVE)
+        {
+            $is_success = false;
+            if ( $MODE == 'REQ_DROPRECORD' )
+            {
+                $sql = new DB();
+                $sql
+                        ->DeleteFrom('d_student_grades')
+                        ->Where('dcg_id='.$DCG_ID.' '
+                                . 'AND course_id='.$COURSE_INFOS['id']);
+                $sql
+                        ->Execute();
+                $is_success = $sql->__IsSuccess();
+                $successmsg = 'Records has been successfully deleted';
+            }
+            if ( $is_success )
+            {
+                FLASH::addFlash($successmsg, Index::__GetPage(), 'PROMPT', TRUE);
+            }
+            else {
+                FLASH::addFlash('Something went wrong. Geeks are on their way to fix it.', Index::__GetPage(), 'ERROR', TRUE);
+            }
+            DATA::DeleteIntents(array(
+                'MODE', 'DCG_ID', 'DIALOG_RESULT', 'DIALOG_OBJECT'
+            ), TRUE, TRUE);
+        }
+    }
+    else
+    {
+        // Prepare dialog object
+        $sql = new DB();
+        $sql    
+                ->Select([ 'gperiod.name' ])
+                ->From('d_course_gperiod, gperiod')
+                ->Where('d_course_gperiod.gperiod_id=gperiod.id '
+                        . 'AND d_course_gperiod.id='.$DCG_ID)
+                ->Limit(1);
+        $periodName = $sql->Query()[0]['name'];
+        if ( $MODE == 'REQ_DROPRECORD' )
+        {
+            $dialog = new DIALOG('Confirm deletion of grade records');
+            $dialog
+                    ->SetMessage('Are you sure you want to delete all grade records for <b>'.$periodName.'</b>?')
+                    ->SetPageCallback(Index::__GetPage());
+            $dialog
+                    ->AddButton(DIALOG::B_YES)
+                    ->AddButton(DIALOG::B_NO)
+                    ->AddButton(DIALOG::B_CANCEL);
+            $dialog
+                    ->ShowDialog();
+        }
+    }
+}
+
+
 // Get all `gperiods`
 $gperiods = array();
 $sql = new DB();
@@ -73,5 +139,4 @@ $report_Gradetable
                                 ))
                         , false)
         );
-
 ?>

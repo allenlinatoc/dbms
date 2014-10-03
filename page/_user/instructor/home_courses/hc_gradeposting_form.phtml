@@ -1,3 +1,62 @@
 <div class="container main">
-    
+    <?php
+    Index::__IncludeSidebar('instructor-course');
+    ?>
+    <div class="col-lg-9 col-md-9 col-sm-9 main-placeholder">
+        <c class="left">Grade posting form</c>
+        <div class="row-fluid">
+            Grading period: <b><?php echo $PERIOD_INFOS['name']; ?></b>
+            <?php
+            if (DATA::__GetIntentSecurely('MODE')=='REQ_EDIT') 
+            {
+                UI::NewLine(2);
+                echo '<img src="web+/site/img/warning.png" width="35" height="35">';
+                echo '&nbsp;&nbsp;';
+                echo '<b><i>You are currently on EDIT mode</i></b>';
+            }
+            ?>
+        </div>
+        <br>
+        <div class="row-fluid">
+            <hr>
+            <form method="post">
+                <table width="100%">
+                    <tr>
+                        <td><b>Student</b></td>
+                        <td><b>Grade</b></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><hr></td>
+                    </tr>
+                    <?php
+                    foreach ($a_students as $student)
+                    {
+                        echo '<tr>';
+                        echo '<td>';
+                        echo $student['fname'].' '.$student['lname'];
+                        echo '</td>';
+                        echo '<td>';
+                        echo '<input type="number" min="0" max="100" name="postStudent'.$student['id'].'"';
+                        if (DATA::__GetIntentSecurely('MODE')=='REQ_EDIT') {
+                            echo ' value="'.$student['value'].'"';
+                        }
+                        echo '>';
+                        echo '</td>';
+                        echo '</tr>';
+                    }
+                    ?>
+                </table>
+                <br>
+                <br>
+                <?php
+                if ( count($a_students) > 0 )
+                {
+                    UI::Button('Post', 'submit', 'btn btn-primary btn-small btn-marginized');
+                }
+                UI::Button('Cancel', 'button', 'btn btn-warning btn-small btn-marginized'
+                        , UI::GetPageUrl('instructor-courses-home-gposting'));
+                ?>
+            </form>
+        </div>
+    </div>
 </div>

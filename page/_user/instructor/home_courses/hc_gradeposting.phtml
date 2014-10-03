@@ -20,8 +20,32 @@
             $frmGperiod->EndForm();
             ?>
         </div>
+        <!-- Button controls -->
+        <div class="row-fluid" align="right">
+            <?php
+            // Report controls
+            if ( count($report_Gradetable->Rowdata) > 0 )
+            {
+                UI::Button('&nbsp;&nbsp;Edit&nbsp;&nbsp;', 'button', 'btn btn-primary btn-small btn-marginized'
+                        , UI::GetPageUrl(Index::__GetPage().'-form'
+                                , array(
+                                    'MODE' => 'REQ_EDIT',
+                                    'DCG_ID' => $postGperiod
+                                )));
+                UI::Button('Delete record', 'button', 'btn btn-danger btn-small btn-marginized'
+                        , UI::GetPageUrl(Index::__GetPage()
+                                , array(
+                                    'MODE' => 'REQ_DROPRECORD',
+                                    'DCG_ID' => $postGperiod
+                                )));
+            }
+            ?>
+        </div>
+        <br>
+        <br>
         <div class="row-fluid">
             <?php
+            // Report (Gradetable)
             $report_Gradetable->renderReport();
             ?>
         </div>
