@@ -1,9 +1,13 @@
 <?php
+
+$COURSE_INFOS = DATA::__GetIntent('COURSE_INFOS');
+
 # ---- Open passages for all pages related to INSTRUCTOR-COURSES-HOME
 DATA::openPassages([
     'user-home',
     'user-courses-home',
     'user-courses-messageboard',
+    'user-myaccount',
     'user-tasks',
     'user-profile',
     'instructor-courses',
@@ -22,10 +26,18 @@ $uc_type = USER::Get(USER::TYPE);
 
 $sql = new DB();
 if ($uc_type=='INSTRUCTOR') {
-    $sql->Select()->From('v_notifications')->OrderBy('datetime', DB::ORDERBY_DESCENDING);
+    $sql
+            ->Select()
+            ->From('v_notifications')
+            ->Where('course_id='.$COURSE_INFOS['id'])
+            ->OrderBy('datetime', DB::ORDERBY_DESCENDING);
 }
 else if ($uc_type=='STUDENT') {
-    $sql->Select()->From('v_notifications_student')->OrderBy('datetime', DB::ORDERBY_DESCENDING);
+    $sql
+            ->Select()
+            ->From('v_notifications_student')
+            ->Where('course_id='.$COURSE_INFOS['id'])
+            ->OrderBy('datetime', DB::ORDERBY_DESCENDING);
 }
 $result_Notifications = $sql->Query();
 

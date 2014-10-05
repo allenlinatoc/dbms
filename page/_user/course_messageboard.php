@@ -18,6 +18,26 @@ if (DATA::__IsPassageOpen()) {
         $COURSE_INFOS = $result[0];
         DATA::CreateIntent('COURSE_INFOS', $COURSE_INFOS);
     }
+    
+    if (DATA::__HasIntentData([ 'MODE', 'MSG_ID' ]))
+    {
+        $MODE = DATA::__GetIntentSecurely('MODE');
+        $MSG_ID = DATA::__GetIntentSecurely('MSG_ID');
+        $sql = new DB();
+        $sql
+                ->DeleteFrom('thread')
+                ->Where('id='.$MSG_ID);
+        $is_success = $sql->Execute()->__IsSuccess();
+        if ($is_success) {
+            FLASH::addFlash('Message has been deleted.', Index::__GetPage(), 'PROMPT', true);
+        }
+        else {
+            FLASH::addFlash('Something went wrong. Geeks are on their way to fix it.', Index::__GetPage(), 'ERROR', true);
+        }
+        DATA::DeleteIntents(array(
+            'MODE', 'MSG_ID'
+        ), true, true);
+    }
 } else {
     UI::RedirectTo(USER::Get(USER::TYPE).'-courses');
 }
@@ -65,9 +85,9 @@ foreach ($result_Threads as $Thread) {
     $sql = new DB();
     $sql->Select()
             ->From('user, profile')
-            ->Where('user.id=' . USER::Get(USER::ID) . ' '
+            ->Where('user.id=' . $Thread['author_id'] . ' '
                     . 'AND user.id=profile.user_id');
-
+    
     // Substitution values
     $author = $sql->Query()[0];
     $author_id = $sql->Select(['id'])->From('user')->Where('id=' . USER::Get(USER::ID))
@@ -130,7 +150,18 @@ foreach ($result_Threads as $Thread) {
             $e_threadHeader .
             UI::Divbox(array(
                 'class' => 'thread-message container-fluid row'
-            ), nl2br($Thread['message']), true)
+            ) , nl2br($Thread['message']), true)
+                
+          . ($Thread['author_id']==USER::Get(USER::ID) ? UI::Divbox(array(
+                'class' => 'row-fluid',
+                'align' => 'right'
+            ), 
+                  UI::Button('Delete', 'button', 'btn btn-danger btn-xs'
+                          , UI::GetPageUrl(Index::__GetPage(), array(
+                              'MODE' => 'REQ_DELETEMSG',
+                              'MSG_ID' => $Thread['id']
+                          )), false)
+                  , true) : '')
         , true)
     );
     

@@ -3,10 +3,46 @@
     <div class="main-placeholder">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-5">
+                <i>Name</i>
                 <h3><?php echo $USER_INFOS['fname'] . ' ' . $USER_INFOS['lname'] ?></h3>
+                <i>Email:</i> <?php echo $USER_INFOS['email']; ?>
+                <br>
+                <i>Account type:</i> <?php echo $USER_INFOS['label']; ?>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-7">
-                Profile dito
+                <div class="row-fluid" align="left">
+                    <?php
+                    // privileged buttons here
+                    if ( USER::Get(USER::ID) == $USER_ID || strtoupper(USER::Get(USER::TYPE)) == 'SUPERADMIN' )
+                    {
+                        $btnCaption = (strtoupper(USER::Get(USER::TYPE)) == 'SUPERADMIN' ?
+                                'Edit this profile' : 'Edit my profile');
+                        // if viewer's own account
+                        UI::Button($btnCaption, 'button', 'btn btn-primary btn-small'
+                                , UI::GetPageUrl('user-myaccount', array(
+                                    'USER_ID' => $USER_ID
+                                )));
+                    }
+                    ?>
+                </div>
+                <div class="row-fluid">
+                    <h3>User's information</h3>
+                    <i>Full name: </i><?php echo $USER_INFOS['fname'].' '.$USER_INFOS['mname'].' '.$USER_INFOS['lname']; ?>
+                    <br>
+                    <i>Gender: </i><?php echo ucfirst($USER_INFOS['gender']); ?>
+                    <br>
+                    <i>Address 1: </i><?php echo ucfirst($USER_INFOS['address1']); ?>
+                    <br>
+                    <i>Address 2: </i><?php echo ucfirst($USER_INFOS['address2']); ?>
+                    <br>
+                    <i>City: </i><?php echo ucfirst($USER_INFOS['city']); ?>
+                    <br>
+                    <i>Province/State: </i><?php echo ucfirst($USER_INFOS['province']); ?>
+                    <br>
+                    <i>Birth date: </i><?php echo ucfirst($USER_INFOS['birthdate']); ?>
+                    <br>
+                    <i>Mobile no.: </i><?php echo ucfirst($USER_INFOS['mobile']); ?>
+                </div>
             </div>
         </div>
     </div>

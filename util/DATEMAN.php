@@ -9,6 +9,7 @@ class DATEMAN {
     
     const DEFAULT_TZ = 'Asia/Manila';
     const DATE_FORMAT = 'Y-m-d';
+    const DATE_FORMAT_JQUERY = 'm-d-Y';
     const TIME_FORMAT = 'H:i:s';
     public static $DATETIME_FORMAT = 'Y-m-d H:i:s';
     

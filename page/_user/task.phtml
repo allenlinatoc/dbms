@@ -105,6 +105,13 @@
                                         'TARGET_ID' => $submissionInfo['id']
                                     ]));
                         }
+                        // show delete button
+                        UI::Button('Delete submission', 'button', 'btn btn-danger btn-sm btn-marginized'
+                                , UI::GetPageUrl(Index::__GetPage()
+                                        , array(
+                                            'MODE' => 'REQ_DELETE_SUBMISSION',
+                                            'TE_ID' => $submissionInfo['id']
+                                        )));
                         UI::NewLine(2);
                         echo '<b>Status: </b>'.($submissionInfo['is_accepted']==1 ? 'Accepted/Checked':'Pending');
                     echo '</p>';

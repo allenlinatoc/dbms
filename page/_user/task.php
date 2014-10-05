@@ -26,9 +26,46 @@ if (DATA::__IsPassageOpen()) {
                 ->Where('task_id='.$TASK_INFOS['id']);
         $TASK_ATTACHMENTS = $sql->Query();
     }
+    
+    // Check for Dialog_Result object, then settle it
+    if (DATA::__HasIntentData('DIALOG_RESULT'))
+    {
+        if (DATA::__GetIntentSecurely('DIALOG_RESULT') == DIALOG::R_AFFIRMATIVE)
+        {
+            // proceed with deletion of entry
+            $TE_ID = DATA::__GetIntentSecurely('TE_ID');
+            //die(print_r($_SESSION, true));
+            $sql = new DB();
+            $sql
+                    ->Select(['tokenvalue'])
+                    ->From('taskentry')
+                    ->Where('id='.$TE_ID)
+                    ->Limit(1);
+            $tokenvalue = $sql->Query()[0]['tokenvalue'];
+            $IOsys = new IOSys($tokenvalue);
+            
+            $sql = new DB();
+            $sql
+                    ->DeleteFrom('taskentry')
+                    ->Where('id='.$TE_ID);
+            $is_success = $sql->Execute()->__IsSuccess();
+            if ($is_success) 
+            {
+                $IOsys->Delete();
+                FLASH::addFlash('Entry submission has been successfully deleted!', Index::__GetPage(), 'PROMPT', TRUE);
+            }
+            else {
+                FLASH::addFlash('Something went wrong during deletion of your entry.', Index::__GetPage(), 'ERROR', TRUE);
+            }
+        }
+        DATA::DeleteIntents([ 'MODE', 'TE_ID', 'DIALOG_RESULT' ], TRUE, TRUE);
+    }
+    
+    // Proceed with INTENT data checking
+    
+    $MODE = DATA::__GetIntentSecurely('MODE');
     if (DATA::__HasIntentData([ 'MODE', 'TARGET_ID' ]))
     {
-        $MODE = DATA::__GetIntentSecurely('MODE');
         $TARGET_ID = DATA::__GetIntentSecurely('TARGET_ID');
         if ($MODE == 'REQ_CANCEL_TE') {
             // get path to file attachment
@@ -63,6 +100,19 @@ if (DATA::__IsPassageOpen()) {
             }
         }
         DATA::DeleteIntents(array('MODE', 'TARGET_ID'), true, true);
+    }
+    else if ($MODE == 'REQ_DELETE_SUBMISSION' && DATA::__HasIntentData('TE_ID'))
+    {
+        // Create DIALOG object
+        $dialog = new DIALOG('Confirm entry deletion');
+        $dialog
+                ->SetMessage('Are you sure you want to delete your submission entry?')
+                ->SetPageCallback(Index::__GetPage())
+                ->AddButton(DIALOG::B_YES)
+                ->AddButton(DIALOG::B_NO)
+                ->AddButton(DIALOG::B_CANCEL);
+        $dialog
+                ->ShowDialog();
     }
 }
 

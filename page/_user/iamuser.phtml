@@ -3,6 +3,58 @@
     Index::__IncludeSidebar(strtolower(USER::Get(USER::TYPE)));
     ?>
     <div class="col-lg-9 col-md-9 col-sm-9 main-placeholder">
-        <c class="left">My user account</c>
+        <c class="left">Edit my account</c>
+        <?php
+        $form = new FORM('frmEditacc', 'post', '', '');
+        $form->AddDropdown("Gender", "postGender", array(
+                "Male" => "male",
+                "Female" => "female"
+            ), array(), "REQUIRED", null, false, $postGender);
+        
+        $form->AddInput("Birthday", "postBirthday", "text", array(
+            "required" => "true",
+            "maxlength" => 10,
+            'id' => 'postbirthday'
+        ), "REQUIRED", "Format should be: mm/dd/yyyy", false, null, $postBirthday);
+        
+        $form->AddInput("E-mail address", "postEmail", "email", array(
+            "required" => "true",
+            "maxlength" => 60,
+            'size' => '40'
+            ), "REQUIRED", null, false, null, $postEmail);
+        
+        $form->AddInput("Mobile number", "postMobile", "text", array(
+            "maxlength" => 15,
+            "size" => $DEFAULT_SIZE
+            ), "DEFAULT", null, false, null, $postMobile);
+        
+        $form->AddInput("Address 1", "postAddress1", "text", array(
+            "maxlength" => 130,
+            "size" => $DEFAULT_SIZE,
+            'required' => 'true'
+            ), "REQUIRED", null, true, null, $postAddress1);
+        
+        $form->AddInput("Address 2", "postAddress2", "text", array(
+            "maxlength" => 130,
+            "size" => $DEFAULT_SIZE
+            ), "DEFAULT", null, true, null, $postAddress2);
+        
+        $form->AddInput("City", "postCity", "text", array(
+            "maxlength" => 30,
+            "size" => $DEFAULT_SIZE,
+            'required' => 'true'
+            ), "REQUIRED", null, false, null, $postCity);
+        
+        $form->AddInput("Province/State", "postProvince", "text", array(
+            "maxlength" => 50,
+            "size" => $DEFAULT_SIZE,
+            'required' => 'true'
+            ), "REQUIRED", null, false, null, $postProvince);
+        
+        $form->RenderSubmitButton('Save');
+        $form->RenderCancelButton('Cancel', 'user-home');
+        $form->EndForm();
+        ?>
     </div>
 </div>
+<script type="text/javascript" src="web+/site/js/page-signup.js"></script>

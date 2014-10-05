@@ -1,5 +1,7 @@
 <?php
 
+DATA::openPassage('user-myaccount', true, false);
+
 $COURSE_INFOS = DATA::__GetIntent('COURSE_INFOS');
 
 // validate if this student is banned from accessing this course

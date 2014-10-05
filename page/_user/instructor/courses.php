@@ -1,10 +1,13 @@
 <?php
 
+$COURSE_INFOS = DATA::__GetIntent('COURSE_INFOS');
+
 # ---- Open passages for all pages related to INSTRUCTOR-COURSES-HOME
 DATA::openPassages([
     'user-home',
     'user-courses-home',
     'user-courses-messageboard',
+    'user-myaccount',
     'user-profile',
     'instructor-courses',
     'instructor-courses-home-about',

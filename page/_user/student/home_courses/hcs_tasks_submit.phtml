@@ -1,0 +1,15 @@
+<div class="container main">
+    <div class="container-fluid main-placeholder">
+        <c class="left">Submit an entry to <i><?php echo $TASK_INFOS['title'] .'</i> (' . $COURSE_INFOS['name'] . ')'; ?></c>
+        <?php
+        $frmSubmit = new FORM('frmSubmit', 'post', '', '', 'left', array(
+            'enctype' => 'multipart/form-data'
+        ));
+        UI::NewLine();
+        echo '<input type="file" name="postFile[]" role="form" required="required"><br>';
+        $frmSubmit->RenderSubmitButton('Submit');
+        $frmSubmit->RenderCancelButton('Cancel', 'user-tasks');
+        $frmSubmit->EndForm();
+        ?>
+    </div>
+</div>

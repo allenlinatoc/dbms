@@ -14,7 +14,7 @@
 class USER {
     
     static $ADMIN_LANDPAGE = 'admin-home';
-    static $USER_LANDPAGE = 'user-home';
+    static $USER_LANDPAGE = 'instructor-courses';
     
     const _USER_CREDENTIALS_MAIN_KEY = 'ass_user_credentials';
     const ID = 'uc_id';

@@ -4,9 +4,16 @@ DATA::openPassages([
     'student-action-cancelpendingcourse',
     'student-gradereports',
     'student-mycourses-enroll',
+    'student-mycourses-gradeview',
+    'student-mycourses-tasks',
+    'student-mycourses-tasks-submit',
     'student-tasks',
     'user-courses-home',
-    'user-courses-messageboard'
+    'user-courses-messageboard',
+    'user-myaccount',
+    'user-profile',
+    'user-tasks',
+    'user-taskattachment'
 ]);
 
 /**
